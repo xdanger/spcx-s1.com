@@ -13,8 +13,8 @@
     "validate-content": "./bin/validate.ts"
   },
   "scripts": {
-    "build": "tsc --noEmit && tsx bin/validate.ts",
-    "validate": "tsx bin/validate.ts",
+    "build": "tsc --noEmit && node --import tsx bin/validate.ts",
+    "validate": "node --import tsx bin/validate.ts",
     "test": "vitest run",
     "lint": "eslint . --no-error-on-unmatched-pattern",
     "lint:fix": "eslint . --no-error-on-unmatched-pattern --fix"
