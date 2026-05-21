@@ -93,11 +93,46 @@ Review checkpoint at end of Phase 2 recommended (PLAN.md §11).
 
 ## Phase 3 — Cinematic stages
 
-**Status:** not started.
+**Status:** done (2026-05-21). Awaiting Kros's review.
 
-Stages 1, 5, 9 built with React Three Fiber. Mobile and reduced-motion
-fallbacks mandatory: each 3D scene has a non-WebGL path that conveys
-the same story. Motion across all stages tuned.
+Deliverables:
+
+- [x] Stage 1 — Cold Open: black-screen reveal, scroll-triggered
+      typewriter of the Musk quote at l.577–580, sparse R3F starfield
+      (sphere-shell distribution, slow drift) gated on WebGL +
+      `min-width: 768px` + `prefers-reduced-motion: no-preference`.
+- [x] Stage 5 — Roadmap: Why-now framing, four-category Growth
+      Strategies grid (Space / Connectivity / AI / Future Markets)
+      parsed from l.1049–1072, dedicated Future Markets cards with
+      descriptions from l.7938–7962, collapsible Business detail
+      (l.7635–7932), pinned commercial-viability caveat. Cinematic:
+      R3F forward-drift starfield as a sticky backdrop while the
+      reader scrolls through the section.
+- [x] Stage 9 — The Horizon: Kardashev II framing (l.715–758), Future
+      Markets summary, Lunar economy block (l.7666–7708), pinned
+      verbatim commercial-viability caveat, scroll-triggered typewriter
+      of the closing line at l.626 as the final beat before End
+      Credits. Cinematic: R3F low-poly wireframe Earth on a sparse
+      starfield, sticky-positioned through the section.
+- [x] Shared `useCanCinematic()` hook: WebGL detect + 768 px floor +
+      reduced-motion gate. Each 3D scene is dynamic-imported via
+      `next/dynamic({ ssr: false })` so the static export bundle stays
+      lean (~109 kB first-load JS on `/`).
+- [x] Reduced-motion path: every cinematic backdrop returns `null`
+      and every typewriter renders the full text immediately when
+      `prefers-reduced-motion: reduce` is set.
+- [x] Mobile fallback: cinematic backdrops disabled below 768 px so
+      mobile users still get the full content with no GPU overhead.
+- [x] Content fix: `stage5.roadmap.why-now` line range tightened from
+      `l.700–758` to `l.715–758` so the "Why This Matters Now" prose
+      no longer pulls in the preceding AI-segment / capex bullets.
+- [x] `pnpm -r build`, `pnpm lint`, `pnpm --filter @spcx/content test`
+      all green.
+
+Note: cross-stage motion polish (KPI count-up easing, etc.) was left
+to a focused follow-up. Phase 3's motion additions all use
+`useReducedMotion` and stay close to the existing palette/restraint
+rules.
 
 ---
 
