@@ -11,7 +11,7 @@ complete, and honest, even without 3D and audio polish.
 
 ## Phase 1 — Skeleton + content extraction
 
-**Status:** in progress (started 2026-05-21).
+**Status:** done (2026-05-21). Awaiting Kros's review on PR #1.
 
 Deliverables:
 
@@ -29,9 +29,12 @@ Deliverables:
 - [x] Stage 0 modal (authored disclaimer, third-person)
 - [x] Stage 10 (end credits, full glossary with search, verbatim
       Forward-Looking caveat)
-- [ ] Cloudflare Pages preview URL live
-- [ ] Short summary in chat: stack chosen, repo path on disk, how to
-      run locally, what's queued for Phase 2
+- [x] Cloudflare Pages preview URL live
+      (https://0c5fc859.spcx-s1.pages.dev, branch alias
+      https://xdanger-claude-musing-gagari.spcx-s1.pages.dev)
+- [x] Short summary in chat: stack chosen, repo path on disk, how to
+      run locally, what's queued for Phase 2 (covered in the Phase 1
+      PR thread; Phase 2 deliverables enumerated below)
 
 **Out of scope for Phase 1:** Stages 1, 2, 3, 4, 5, 6, 7, 8, 9
 rendering (Phase 2 + Phase 3); multilingual UI translation; share
