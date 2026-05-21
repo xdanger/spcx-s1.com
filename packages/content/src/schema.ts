@@ -88,6 +88,14 @@ const ContentNodeBase = z.object({
 });
 
 export const ContentNode = ContentNodeBase.superRefine((node, ctx) => {
+  const idStageMatch = /^stage(\d+)\./.exec(node.id);
+  if (idStageMatch && Number(idStageMatch[1]) !== node.stage) {
+    ctx.addIssue({
+      code: z.ZodIssueCode.custom,
+      path: ["stage"],
+      message: `stage ${String(node.stage)} disagrees with id prefix '${idStageMatch[0]}' — keep \`stage\` and the id's \`stageN.\` prefix in sync`,
+    });
+  }
   if (!node.verbatim && node.source && !node.originalText) {
     ctx.addIssue({
       code: z.ZodIssueCode.custom,

@@ -28,4 +28,24 @@ describe("ContentNode schema", () => {
 
     expect(parsed.success).toBe(false);
   });
+
+  it("rejects a node whose stage disagrees with its id prefix", () => {
+    const parsed = ContentNode.safeParse({
+      id: "stage6.financials.use-of-proceeds",
+      stage: 7,
+      kind: "caveat",
+      text: { en: "mismatched node" },
+      verbatim: true,
+      source: {
+        file: "sources/20260520_SpaceX_S-1_SEC-Filing.md",
+        lineStart: 3575,
+        lineEnd: 3601,
+      },
+    });
+
+    expect(parsed.success).toBe(false);
+    if (!parsed.success) {
+      expect(parsed.error.issues.some((i) => i.path.includes("stage"))).toBe(true);
+    }
+  });
 });
