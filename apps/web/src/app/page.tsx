@@ -1,8 +1,15 @@
+import type { ReactNode } from "react";
 import { byStage, glossary } from "@spcx/content";
 
 import { MissionBriefing } from "../components/Stage0/MissionBriefing";
+import { Algorithm } from "../components/Stage4/Algorithm";
+import { AnomalyLog } from "../components/Stage7/AnomalyLog";
 import { EndCredits } from "../components/Stage10/EndCredits";
 import { StagePlaceholder } from "../components/StagePlaceholder";
+import { TheNumbers } from "../components/Stage6/TheNumbers";
+import { ThreePillars } from "../components/Stage3/ThreePillars";
+import { WhoSteers } from "../components/Stage8/WhoSteers";
+import { WhoWeAre } from "../components/Stage2/WhoWeAre";
 import { STAGES } from "../lib/stages";
 
 export default function Home() {
@@ -16,6 +23,15 @@ export default function Home() {
   if (!caveat) {
     throw new Error("Missing Stage 10 Forward-Looking Statements caveat");
   }
+
+  const stageRenderers: Record<number, ReactNode> = {
+    2: <WhoWeAre nodes={byStage(2)} />,
+    3: <ThreePillars nodes={byStage(3)} />,
+    4: <Algorithm nodes={byStage(4)} />,
+    6: <TheNumbers nodes={byStage(6)} />,
+    7: <AnomalyLog nodes={byStage(7)} />,
+    8: <WhoSteers nodes={byStage(8)} />,
+  };
 
   return (
     <main>
@@ -38,14 +54,20 @@ export default function Home() {
           </p>
         </div>
       </section>
-      {STAGES.slice(1, 10).map((stage) => (
-        <StagePlaceholder
-          key={stage.id}
-          id={stage.id}
-          title={stage.title}
-          phase={stage.phase}
-        />
-      ))}
+      {STAGES.slice(1, 10).map((stage) => {
+        const rendered = stageRenderers[stage.id];
+        if (rendered) {
+          return <div key={stage.id}>{rendered}</div>;
+        }
+        return (
+          <StagePlaceholder
+            key={stage.id}
+            id={stage.id}
+            title={stage.title}
+            phase={stage.phase}
+          />
+        );
+      })}
       <EndCredits authored={authored} caveat={caveat} glossary={glossary()} />
     </main>
   );
