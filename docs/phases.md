@@ -45,12 +45,47 @@ support all of them.
 
 ## Phase 2 — All static stages
 
-**Status:** not started.
+**Status:** done (2026-05-21). Awaiting Kros's review.
 
-Stages 2, 3, 4, 6, 7, 8 render. Site is **informationally complete**
-without 3D. Every line of the S-1 the plan promises is reachable.
-Source toggle annotates every content block. Charts in Stage 6 use the
-financial PDF palette (Chart.js dynamic import).
+Deliverables:
+
+- [x] Stage 2 — Who We Are: KPI strip with scroll-triggered count-ups
+      (mass to orbit / orbital launches / Starlink subscribers), founding
+      prose, and the milestone timeline 2008-2026.
+- [x] Stage 3 — The Three Pillars: Space, Connectivity, AI rendered as
+      stacked sections; each pillar parses its bullet list into sub-product
+      cards (Falcon 9, Dragon, Starlink Consumer/Enterprise/Government/
+      Mobile, COLOSSUS, Grok, Macrohard) with an expandable business-detail
+      `<details>` for the deep prose.
+- [x] Stage 4 — The Algorithm: the seven-point Repeatable Business Model
+      list plus the pulled-out five-step Algorithm quote at l.906.
+- [x] Stage 6 — The Numbers: six new KPI nodes (Revenue 2023/2024/2025 +
+      Net income (loss) 2023/2024/2025) with finance-convention rendering
+      `$10,387` / `($4,937)`, verbatim Use of Proceeds and Dividend
+      Policy callouts in amber, and four collapsible deep tables
+      (Summary, MD&A, Capitalization, Segment 2025).
+- [x] Stage 7 — The Anomaly Log: six highlighted disclosures pinned, full
+      taxonomy by category (mission / operational / regulatory / financial
+      / governance / sector-ai), each risk card expandable to its verbatim
+      S-1 paragraph; commercial-viability caveat cross-linked at the
+      bottom with `caveat:commercial-viability` tag.
+- [x] Stage 8 — Who Steers the Ship: founder & controlled-company status,
+      dual-class share structure, Texas reincorporation & forum, Musk
+      dependency risk factor, related-party transactions (summary +
+      financial-statement notes).
+- [x] Shared `StageSection` wrapper + `textHelpers` lib (`parseList`,
+      `cleanProse`, `parseNumericValue`, `formatNumericValue`) covering
+      all six stages.
+- [x] Stage 1 / 5 / 9 still render the Phase-3 placeholder.
+- [x] Source toggle annotates every Phase 2 content block via
+      `SourceRef`.
+- [x] `pnpm -r build`, `pnpm lint`, `pnpm --filter @spcx/content test`
+      all green; static export still ~106 kB first-load JS on `/`.
+
+Note: Chart.js was deferred. Stage 6 ships with a KPI grid that
+captures the headline trajectory but no rendered bar/line charts yet;
+this can be picked up in a focused follow-up without touching the
+content layer.
 
 Review checkpoint at end of Phase 2 recommended (PLAN.md §11).
 
