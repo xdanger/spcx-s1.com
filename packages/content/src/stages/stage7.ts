@@ -1,0 +1,68 @@
+import { riskNode, sourceNode } from "./utils";
+
+const highlighted = ["highlighted-disclosure"];
+
+export const stage7Nodes = [
+  riskNode("stage7.summary.principal-risk-factors", 1228, 1280, "mission", "high"),
+  riskNode("stage7.taxonomy.mission-starship", 1573, 1644, "mission", "critical"),
+  riskNode("stage7.taxonomy.regulatory-approvals", 1645, 1879, "regulatory", "high"),
+  riskNode("stage7.taxonomy.operational-space-systems", 1880, 2078, "operational", "critical"),
+  riskNode("stage7.taxonomy.sector-ai-infrastructure", 2079, 2259, "sector-ai", "high"),
+  riskNode("stage7.taxonomy.financial-capital-markets", 2263, 3138, "financial", "high"),
+  riskNode("stage7.taxonomy.governance-ownership", 3139, 3495, "governance", "critical"),
+  riskNode(
+    "stage7.highlight.in-orbit-satellites-uninsured",
+    3139,
+    3147,
+    "operational",
+    "high",
+    highlighted,
+    true,
+  ),
+  riskNode(
+    "stage7.highlight.no-key-person-insurance-musk",
+    3208,
+    3209,
+    "governance",
+    "high",
+    highlighted,
+    true,
+  ),
+  riskNode(
+    "stage7.highlight.musk-not-full-time",
+    3209,
+    3211,
+    "governance",
+    "high",
+    highlighted,
+    true,
+  ),
+  riskNode(
+    "stage7.highlight.musk-senior-advisor",
+    3211,
+    3214,
+    "governance",
+    "medium",
+    highlighted,
+    true,
+  ),
+  riskNode("stage7.highlight.cursor-fees", 1171, 1175, "financial", "high", highlighted, true),
+  riskNode(
+    "stage7.highlight.tesla-macrohard-terafab-unfinalized",
+    3157,
+    3160,
+    "governance",
+    "high",
+    highlighted,
+    true,
+  ),
+  sourceNode({
+    id: "stage7.caveat.commercial-viability-crosslink",
+    stage: 7,
+    kind: "caveat",
+    lineStart: 1086,
+    lineEnd: 1118,
+    sectionTitle: "Our Challenges",
+    tags: ["caveat:commercial-viability", "verbatim-required"],
+  }),
+];

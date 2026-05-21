@@ -1,0 +1,31 @@
+{
+  "name": "@spcx/content",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./schema": "./src/schema.ts",
+    "./manifest": "./src/manifest.ts"
+  },
+  "bin": {
+    "validate-content": "./bin/validate.ts"
+  },
+  "scripts": {
+    "build": "tsc --noEmit && tsx bin/validate.ts",
+    "validate": "tsx bin/validate.ts",
+    "test": "vitest run",
+    "lint": "eslint . --no-error-on-unmatched-pattern",
+    "lint:fix": "eslint . --no-error-on-unmatched-pattern --fix"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.5",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  }
+}
