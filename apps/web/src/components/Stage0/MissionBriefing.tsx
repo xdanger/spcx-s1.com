@@ -65,7 +65,9 @@ export const MissionBriefing = ({ nodes }: MissionBriefingProps) => {
               <p key={node.id}>
                 {primary}
                 {secondary ? (
-                  <span className="mt-1 block text-muted-white/80">{secondary}</span>
+                  <span lang="zh" className="mt-1 block text-muted-white/80">
+                    {secondary}
+                  </span>
                 ) : null}
               </p>
             );
