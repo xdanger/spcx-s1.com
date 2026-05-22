@@ -49,14 +49,7 @@ export default function Home() {
         if (rendered) {
           return <div key={stage.id}>{rendered}</div>;
         }
-        return (
-          <StagePlaceholder
-            key={stage.id}
-            id={stage.id}
-            title={stage.title}
-            phase={stage.phase}
-          />
-        );
+        return <StagePlaceholder key={stage.id} id={stage.id} phase={stage.phase} />;
       })}
       <EndCredits authored={authored} caveat={caveat} glossary={glossary()} />
     </main>

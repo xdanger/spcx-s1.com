@@ -30,7 +30,6 @@ export const UI_STRINGS = {
   "shell.controls.locale.to-zh": { en: "Switch language to Chinese", zh: "" },
   "shell.controls.reopen-briefing": { en: "Reopen mission briefing", zh: "" },
 
-  "stage0.title": { en: "Mission Briefing", zh: "" },
   "stage0.dismiss": { en: "Begin", zh: "" },
   "stage0.intro": {
     en: "This stage opens as a modal on first visit and remains reachable from the information control.",
