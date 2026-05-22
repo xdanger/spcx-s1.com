@@ -7,7 +7,7 @@ import { useUiString } from "../../hooks/useLocalized";
 // content from the document outline. Title + intro are sourced from the
 // UI-string registry so locale toggling updates them in place.
 export const Stage0Stub = () => {
-  const title = useUiString("stage0.title");
+  const title = useUiString("stage.title.0");
   const intro = useUiString("stage0.intro");
 
   return (

@@ -16,7 +16,7 @@ export const MissionBriefing = ({ nodes }: MissionBriefingProps) => {
   const hasHydrated = useUIStore((state) => state.hasHydrated);
   const dismiss = useUIStore((state) => state.dismissModal);
   const locale = useLocale();
-  const title = useUiString("stage0.title");
+  const title = useUiString("stage.title.0");
   const dismissLabel = useUiString("stage0.dismiss");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
