@@ -138,12 +138,48 @@ rules.
 
 ## Phase 4 — Multilingual + a11y + SEO + share cards
 
-**Status:** not started.
+**Status:** in progress. Delivered in three PRs.
 
-Chinese translation layer fully populated (every `text.en` has a
-non-empty `text.zh`). Validator switches `text.zh` from optional to
-required. Accessibility audit clean (WCAG 2.1 AA). SEO metadata +
-per-stage Open Graph share cards generated at build time.
+### Phase 4 — PR A: infrastructure (this branch)
+
+- [x] Chinese translation registry at
+      `packages/content/src/translations/zh.ts` — keyed by node id,
+      one canonical translation per node, looked up by the existing
+      `sourceNode` / `authoredNode` factories. Initially empty.
+- [x] Validator rule 12 wired to `--phase=4` flag. Run with
+      `pnpm --filter @spcx/content validate:phase4`. Build default
+      stays at phase 1 until the registry is populated.
+- [x] Coverage audit: `pnpm --filter @spcx/content audit-zh`
+      (`--quiet` for tally only) lists every missing translation
+      grouped by stage and exits non-zero while gaps remain.
+- [x] Locale-aware rendering helper at `apps/web/src/lib/localized.ts`
+      and `apps/web/src/hooks/useLocalized.ts`. Returns
+      `{ primary, secondary }`: verbatim nodes in `zh` keep their
+      English original on top and render the Chinese translation
+      beneath; non-verbatim nodes swap straight to `zh`.
+- [x] Every stage component switched off the literal `node.text.en`
+      pattern and through the dual-text helper.
+- [x] UI-string registry at `apps/web/src/lib/uiStrings.ts` for
+      labels outside the content layer (Shell controls, chapter
+      index, mission briefing modal, stage titles). `<html lang>`
+      already synced to `uiStore.locale` in `Shell.tsx`.
+
+### Phase 4 — PR B: translations
+
+- [ ] Populate `zh.ts` with the 193 entries (proper-noun rules per
+      `docs/voice-and-visual.md`).
+- [ ] Fill `zh` values across `uiStrings.ts`.
+- [ ] Migrate scattered in-stage section labels onto `useUiString`.
+- [ ] Flip the build script to `validate:phase4` so missing entries
+      fail CI.
+
+### Phase 4 — PR C: SEO + share cards + a11y audit
+
+- [ ] OpenGraph + Twitter Card metadata + canonical URL +
+      `sitemap.xml` + `robots.txt`.
+- [ ] Per-stage OG share cards generated at build time.
+- [ ] WCAG 2.1 AA pass (axe + Lighthouse), keyboard nav end to end,
+      `prefers-reduced-motion` honored throughout.
 
 Review checkpoint at end of Phase 4 recommended (PLAN.md §11).
 
