@@ -138,7 +138,10 @@ export const AnomalyLog = ({ nodes }: AnomalyLogProps) => {
                   {cleanProse(summaryDual.primary)}
                 </pre>
                 {summaryDual.secondary ? (
-                  <pre className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80">
+                  <pre
+                    lang="zh"
+                    className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
+                  >
                     {cleanProse(summaryDual.secondary)}
                   </pre>
                 ) : null}
@@ -211,7 +214,10 @@ export const AnomalyLog = ({ nodes }: AnomalyLogProps) => {
               {cleanProse(caveatDual.primary)}
             </pre>
             {caveatDual.secondary ? (
-              <pre className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80">
+              <pre
+                lang="zh"
+                className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
+              >
                 {cleanProse(caveatDual.secondary)}
               </pre>
             ) : null}

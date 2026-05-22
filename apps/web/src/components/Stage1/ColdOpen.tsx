@@ -43,12 +43,15 @@ const splitQuote = (raw: string): { body: string; attribution: string } => {
 };
 
 export const ColdOpen = ({ nodes }: ColdOpenProps) => {
+  // Hook must run before any conditional throw — React's Rules of Hooks
+  // require an unconditional, fixed hook order per render even though
+  // the throw practically unmounts the tree.
+  const locale = useLocale();
   const muskQuote = nodes.find((node) => node.id === "stage1.cold-open.musk-quote");
   if (!muskQuote) {
     throw new Error("Stage 1: missing Musk quote content node");
   }
 
-  const locale = useLocale();
   const { primary, secondary } = dualText(muskQuote, locale);
   const { body, attribution } = splitQuote(primary);
   // Voice rule (docs/voice-and-visual.md): the Musk quote keeps its
