@@ -13,10 +13,15 @@ export interface ParsedList {
 
 const BULLET_PATTERN = /^\s*(?<marker>[-*•]|\d{1,2}\.)\s+(?<body>.*)$/;
 const PAGE_ARTIFACT_PATTERN = /^\d{1,3}$/;
-const TITLE_SPLIT = /^([^.]{2,80})\.\s+(.*)$/s;
+// Title separator: ASCII period + space (en source convention) or
+// full-width Chinese period (`。`), which traditionally has no
+// trailing space. Accepting both keeps the eyebrow/body split
+// working in Stage 3 / Stage 8 cards after zh translations land.
+const TITLE_SPLIT_EN = /^([^.]{2,80})\.\s+(.*)$/s;
+const TITLE_SPLIT_ZH = /^([^。]{2,80})。\s*(.*)$/s;
 
 const splitTitle = (body: string): { title: string | null; rest: string } => {
-  const match = TITLE_SPLIT.exec(body);
+  const match = TITLE_SPLIT_EN.exec(body) ?? TITLE_SPLIT_ZH.exec(body);
   if (!match) return { title: null, rest: body };
   return { title: match[1].trim(), rest: match[2].trim() };
 };
