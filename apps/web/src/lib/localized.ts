@@ -36,12 +36,21 @@ export const dualText = (node: ContentNode, locale: Locale): DualText => {
   return { primary: zh, secondary: undefined };
 };
 
-// Returns the single string that should feed parsers (parseList,
-// parseGroupedList, splitQuote, cleanProse). Same selection as primary
-// but with the verbatim bilingual rule collapsed: for verbatim nodes
-// we still parse the English original because that's what the
-// structural markers were authored against. Non-verbatim zh strings
-// must preserve the same structural format as their English source
-// (bullets, em-dashes, paragraph breaks) so parsers work on either.
-export const primaryText = (node: ContentNode, locale: Locale): string =>
-  dualText(node, locale).primary;
+// Returns the single string that should feed parsers — parseList,
+// parseGroupedList, splitQuote, cleanProse — that consume structural
+// markers (bullets, em-dashes, paragraph breaks) and emit per-item
+// pieces for rendering. In `zh` locale this prefers `text.zh` when
+// present, regardless of `node.verbatim`: if a list node is rendered
+// only through its parsed items, falling back to English would mean
+// the visible cards stay English even after the zh registry lands.
+// Translators must preserve the source's structural shape in the zh
+// string for list-kind nodes (the markdown markers are language-neutral)
+// so the parser produces the same item count. For verbatim quote/prose
+// rendered directly without a parser, callers should use `dualText`
+// instead — that path still surfaces the English original on top with
+// the Chinese translation beneath per docs/voice-and-visual.md.
+export const primaryText = (node: ContentNode, locale: Locale): string => {
+  const zh = node.text.zh;
+  if (locale === "zh" && hasContent(zh)) return zh;
+  return node.text.en;
+};
