@@ -85,7 +85,10 @@ const RiskCard = ({ node, dense = false }: { node: ContentNode; dense?: boolean 
           {cleanProse(primary)}
         </pre>
         {secondary ? (
-          <pre className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80">
+          <pre
+            lang="zh"
+            className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
+          >
             {cleanProse(secondary)}
           </pre>
         ) : null}

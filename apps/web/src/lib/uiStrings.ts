@@ -37,6 +37,7 @@ export const UI_STRINGS = {
     zh: "",
   },
 
+  "stage.title.0": stageTitle("Mission Briefing"),
   "stage.title.1": stageTitle("Cold Open"),
   "stage.title.2": stageTitle("Who We Are"),
   "stage.title.3": stageTitle("The Three Pillars"),
@@ -57,7 +58,16 @@ export const uiString = (id: UiStringId, locale: Locale): string => {
   return entry.en;
 };
 
-export const stageTitleId = (id: number): UiStringId => {
-  const key = `stage.title.${String(id)}` as UiStringId;
-  return key;
-};
+// Narrowed signature: only stage ids the registry actually defines are
+// accepted. Catches the case where a future contributor extends STAGES
+// without adding the corresponding `stage.title.N` entry — TypeScript
+// will reject the call instead of bouncing through an `as UiStringId`
+// cast that crashes `uiString()` with `Cannot read properties of
+// undefined` when ChapterIndex enumerates the stage.
+type StageTitleKey = Extract<UiStringId, `stage.title.${number}`>;
+export type StageWithTitle = StageTitleKey extends `stage.title.${infer N extends number}`
+  ? N
+  : never;
+
+export const stageTitleId = (id: StageWithTitle): StageTitleKey =>
+  `stage.title.${String(id)}` as StageTitleKey;
