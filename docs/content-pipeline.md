@@ -256,6 +256,34 @@ actual l.3208 wording when extracting:
 }
 ```
 
+## Chinese translation registry (Phase 4)
+
+Translations live in `packages/content/src/translations/zh.ts` as a
+plain `Record<nodeId, string>`. The `sourceNode` / `authoredNode`
+factories look up the id at build time and attach `text.zh` only when
+the registry has a non-empty entry. Stage files do not carry any
+Chinese strings directly — there is one canonical translation per id,
+edited in one place.
+
+To add or update a translation:
+
+1. Open `packages/content/src/translations/zh.ts`.
+2. Add or edit `"<node-id>": "<chinese text>"`. Proper nouns (SpaceX,
+   Falcon 9, Dragon, Starlink, COLOSSUS, Grok, NASA, FCC, etc.) stay
+   in English inside the Chinese string. Verbatim S-1 quotes keep
+   their English original on screen — the zh string is the translation
+   shown beneath, not a replacement.
+3. Audit coverage with `pnpm --filter @spcx/content audit-zh`. Pass
+   `--quiet` to suppress the per-node missing list and just see the
+   per-stage tally.
+4. Run `pnpm --filter @spcx/content validate:phase4` to see which ids
+   still trip rule 12. The default `validate` script stays in phase 1
+   mode until the registry is complete; the build script will switch
+   to phase 4 once translations land.
+
+The validator considers a missing key, an undefined value, and a
+whitespace-only string as the same translation gap.
+
 ## Refreshing the source file
 
 The S-1 may be amended pre-IPO. To refresh:
