@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 
+import { useUiString } from "../../hooks/useLocalized";
 import { useUIStore } from "../../stores/uiStore";
 
 const START_SECONDS = 11 * 60;
@@ -21,6 +22,8 @@ export const TMinusBar = () => {
   const progress = useUIStore((state) => state.scrollProgress);
   const setScrollProgress = useUIStore((state) => state.setScrollProgress);
   const countdown = formatCountdown(START_SECONDS * (1 - progress));
+  const brand = useUiString("shell.brand");
+  const tminus = useUiString("shell.tminus.aria");
 
   useEffect(() => {
     const update = () => {
@@ -46,8 +49,8 @@ export const TMinusBar = () => {
         style={{ width: `${String(progress * 100)}%` }}
       />
       <div className="mx-auto flex h-full max-w-6xl items-center justify-between px-4 font-telemetry text-[11px] uppercase tracking-[0.18em] text-muted-white">
-        <span>SpaceX S-1</span>
-        <span aria-label={`T minus ${countdown}`}>T - {countdown}</span>
+        <span>{brand}</span>
+        <span aria-label={`${tminus} ${countdown}`}>T - {countdown}</span>
       </div>
     </div>
   );

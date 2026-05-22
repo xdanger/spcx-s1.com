@@ -8,6 +8,7 @@ import { EndCredits } from "../components/Stage10/EndCredits";
 import { Horizon } from "../components/Stage9/Horizon";
 import { MissionBriefing } from "../components/Stage0/MissionBriefing";
 import { Roadmap } from "../components/Stage5/Roadmap";
+import { Stage0Stub } from "../components/Stage0/Stage0Stub";
 import { StagePlaceholder } from "../components/StagePlaceholder";
 import { TheNumbers } from "../components/Stage6/TheNumbers";
 import { ThreePillars } from "../components/Stage3/ThreePillars";
@@ -42,24 +43,7 @@ export default function Home() {
   return (
     <main>
       <MissionBriefing nodes={stage0} />
-      <section
-        id="stage-0"
-        aria-labelledby="stage-0-title"
-        className="flex min-h-screen items-center px-6 py-28"
-      >
-        <div className="mx-auto w-full max-w-5xl">
-          <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-            Stage 00
-          </p>
-          <h1 id="stage-0-title" className="mt-4 text-5xl font-semibold">
-            Mission Briefing
-          </h1>
-          <p className="mt-6 max-w-prose text-muted-white">
-            This stage opens as a modal on first visit and remains reachable from the
-            information control.
-          </p>
-        </div>
-      </section>
+      <Stage0Stub />
       {STAGES.slice(1, 10).map((stage) => {
         const rendered = stageRenderers[stage.id];
         if (rendered) {

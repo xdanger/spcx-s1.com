@@ -1,5 +1,6 @@
 "use client";
 
+import { useUiString } from "../../hooks/useLocalized";
 import { useUIStore, type Locale } from "../../stores/uiStore";
 
 export const Controls = () => {
@@ -12,13 +13,23 @@ export const Controls = () => {
   const openModal = useUIStore((state) => state.openModal);
 
   const nextLocale: Locale = locale === "en" ? "zh" : "en";
+  const sourceLabel = useUiString(
+    sourceVisible ? "shell.controls.source.hide" : "shell.controls.source.show",
+  );
+  const audioLabel = useUiString(
+    audioOn ? "shell.controls.audio.off" : "shell.controls.audio.on",
+  );
+  const localeLabel = useUiString(
+    nextLocale === "en" ? "shell.controls.locale.to-en" : "shell.controls.locale.to-zh",
+  );
+  const briefingLabel = useUiString("shell.controls.reopen-briefing");
 
   return (
     <div className="fixed bottom-4 right-4 z-40 flex gap-2">
       <button
         type="button"
         aria-pressed={sourceVisible}
-        aria-label={sourceVisible ? "Hide source references" : "Show source references"}
+        aria-label={sourceLabel}
         onClick={toggleSource}
         className="h-10 w-10 border border-white/25 bg-panel-black font-telemetry text-sm text-body-white hover:border-accent-teal"
       >
@@ -27,7 +38,7 @@ export const Controls = () => {
       <button
         type="button"
         aria-pressed={audioOn}
-        aria-label={audioOn ? "Turn audio off" : "Turn audio on"}
+        aria-label={audioLabel}
         onClick={toggleAudio}
         className="h-10 w-10 border border-white/25 bg-panel-black font-telemetry text-sm text-body-white hover:border-accent-teal"
       >
@@ -35,7 +46,7 @@ export const Controls = () => {
       </button>
       <button
         type="button"
-        aria-label={`Switch language to ${nextLocale === "en" ? "English" : "Chinese"}`}
+        aria-label={localeLabel}
         onClick={() => {
           setLocale(nextLocale);
         }}
@@ -45,7 +56,7 @@ export const Controls = () => {
       </button>
       <button
         type="button"
-        aria-label="Reopen mission briefing"
+        aria-label={briefingLabel}
         onClick={openModal}
         className="h-10 w-10 border border-white/25 bg-panel-black font-telemetry text-sm text-body-white hover:border-accent-teal"
       >
