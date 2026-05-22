@@ -158,6 +158,10 @@ refresh-manifest` and re-verify all content. This catches the
 12. **Chinese translation key present.** In Phase 4 only, every node
     must have a `text.zh`. In Phase 1, missing `zh` is allowed; empty
     string is allowed.
+13. **No orphan zh keys.** Every key in `translations/zh.ts` must match
+    an existing node id. Fires in every phase so a typo (e.g.
+    `stage1.cold-open.musk-quoute`) surfaces immediately instead of
+    leaving the real node untranslated forever.
 
 The validator prints a structured error report on failure: one error
 per violation with `id`, `stage`, the offending field, and (where

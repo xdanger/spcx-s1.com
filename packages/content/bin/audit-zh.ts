@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
 
-import { allNodes, getZh } from "../src/index";
+import { allNodes, getZh, orphanZhKeys } from "../src/index";
 
 // Audits the Chinese translation coverage of the content layer. Prints a
 // per-stage tally, the percentage covered, and (unless --quiet) the id +
@@ -40,6 +40,8 @@ const totalNodes = allNodes.length;
 const translated = sorted.reduce((sum, stat) => sum + stat.translated, 0);
 const missing = totalNodes - translated;
 const pct = totalNodes === 0 ? "100.0" : ((translated / totalNodes) * 100).toFixed(1);
+const knownIds = new Set(allNodes.map((node) => node.id));
+const orphans = orphanZhKeys(knownIds);
 
 console.log(
   `zh coverage: ${String(translated)}/${String(totalNodes)} (${pct}%) — ${String(missing)} missing`,
@@ -52,8 +54,18 @@ for (const stat of sorted) {
   console.log(label);
 }
 
-if (QUIET || missing === 0) {
-  process.exit(missing === 0 ? 0 : 1);
+if (orphans.length > 0) {
+  console.log("");
+  console.log(`Orphan zh keys (${String(orphans.length)}) — not matched by any node id:`);
+  for (const key of orphans) {
+    console.log(`  ${key}`);
+  }
+}
+
+const ok = missing === 0 && orphans.length === 0;
+
+if (QUIET || ok) {
+  process.exit(ok ? 0 : 1);
 }
 
 console.log("");
@@ -67,4 +79,6 @@ for (const stat of sorted) {
   }
 }
 
-process.exit(missing === 0 ? 0 : 1);
+// Reaching this point means `ok === false`; the verbose-output branch
+// only runs when there's something wrong to enumerate.
+process.exit(1);

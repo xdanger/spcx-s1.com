@@ -157,4 +157,10 @@ describe("validator rules", () => {
       true,
     );
   });
+
+  it("rule 13 passes with a clean zh registry", () => {
+    const result = validateContent();
+
+    expect(result.errors.some((error) => error.rule === 13)).toBe(false);
+  });
 });
