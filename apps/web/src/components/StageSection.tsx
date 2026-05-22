@@ -1,8 +1,15 @@
+"use client";
+
 import type { ReactNode } from "react";
+
+import { useUiString } from "../hooks/useLocalized";
+import { stageTitleId } from "../lib/uiStrings";
 
 interface StageSectionProps {
   id: number;
-  title: string;
+  // Optional override — otherwise the title is looked up from the
+  // UI-string registry by stage id so locale switching is automatic.
+  title?: string;
   eyebrow?: string;
   lede?: ReactNode;
   children: ReactNode;
@@ -12,6 +19,8 @@ export const StageSection = ({ id, title, eyebrow, lede, children }: StageSectio
   const sectionId = `stage-${String(id)}`;
   const titleId = `${sectionId}-title`;
   const eyebrowText = eyebrow ?? `Stage ${String(id).padStart(2, "0")}`;
+  const localizedTitle = useUiString(stageTitleId(id));
+  const renderedTitle = title ?? localizedTitle;
 
   return (
     <section
@@ -24,7 +33,7 @@ export const StageSection = ({ id, title, eyebrow, lede, children }: StageSectio
           {eyebrowText}
         </p>
         <h2 id={titleId} className="mt-4 text-4xl font-semibold leading-tight sm:text-5xl">
-          {title}
+          {renderedTitle}
         </h2>
         {lede ? <div className="mt-6 max-w-prose text-muted-white">{lede}</div> : null}
         <div className="mt-12">{children}</div>
