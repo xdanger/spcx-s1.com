@@ -4,6 +4,7 @@ import { allNodes } from "./index";
 import { sourceManifest, type SourceManifest } from "./manifest";
 import { ContentNode, type ContentNode as ContentNodeType } from "./schema";
 import { loadSource, normalizeWhitespace, SOURCE_PATH, textFromLines } from "./source";
+import { orphanZhKeys } from "./translations";
 
 export interface ValidationIssue {
   rule: number;
@@ -270,6 +271,22 @@ export const validateContent = (options: ValidateOptions = {}): ValidationResult
       rule: 10,
       field: "sourceLineCount",
       message: `Source line count ${String(source.lineCount)} differs from manifest ${String(manifest.sourceLineCount)}. Run \`pnpm --filter @spcx/content refresh-manifest\`.`,
+    });
+  }
+
+  // Rule 13 — orphan entries in the zh translation registry. A typo
+  // in `translations/zh.ts` (e.g. `stage1.cold-open.musk-quoute` for
+  // `…musk-quote`) would otherwise leave the real node untranslated
+  // while the orphan lingers forever, with the mistake invisible to
+  // both the audit script and the phase-4 validator. This rule fires
+  // in every phase so typos surface immediately as PR B is filled in.
+  const knownIds = new Set(parsedNodes.map((node) => node.id));
+  const orphans = orphanZhKeys(knownIds);
+  for (const key of orphans) {
+    errors.push({
+      rule: 13,
+      field: "zhTranslations",
+      message: `zhTranslations key '${key}' does not match any node id`,
     });
   }
 
