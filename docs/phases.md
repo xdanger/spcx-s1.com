@@ -222,11 +222,33 @@ Still deferred (tracked separately):
 
 ### Phase 4 — PR C: SEO + share cards + a11y audit
 
-- [ ] OpenGraph + Twitter Card metadata + canonical URL +
-      `sitemap.xml` + `robots.txt`.
-- [ ] Per-stage OG share cards generated at build time.
-- [ ] WCAG 2.1 AA pass (axe + Lighthouse), keyboard nav end to end,
-      `prefers-reduced-motion` honored throughout.
+- [x] OpenGraph + Twitter Card metadata + canonical URL + hreflang
+      alternates (en, zh, x-default) wired through `app/layout.tsx`.
+- [x] `robots.txt` and `sitemap.xml` generated via Next.js metadata
+      route conventions (`app/robots.ts`, `app/sitemap.ts`). Major LLM
+      crawlers (GPTBot, Google-Extended, CCBot, ClaudeBot,
+      anthropic-ai) are disallowed; standard search and social-card
+      scrapers are allowed.
+- [x] OG share card generated at build time via Next.js
+      `app/opengraph-image.tsx` + `app/twitter-image.tsx`
+      (`next/og` ImageResponse, 1200×630, near-black with teal accent).
+      Per-stage variants are out of scope here — see "Still deferred".
+- [x] a11y polish: skip-to-main link (locale-aware), single H1 per
+      page (Stage 0 modal heading demoted to H2), `<main id="main-content">`
+      landmark, audited interactive elements have accessible names.
+- [x] `prefers-reduced-motion: reduce` is already honored by every
+      cinematic backdrop, typewriter, and KPI count-up via the shared
+      `useReducedMotion` hook (confirmed unchanged from Phase 3).
+
+Still deferred (tracked outside Phase 4):
+
+- [ ] Per-stage OG share cards (e.g. `/#stage-7` social previews).
+      The single-page-with-fragment URL shape means OG metadata can't
+      vary by fragment, so per-stage cards would only land as their
+      own deep-linked URLs — a future routing refactor.
+- [ ] Full axe + Lighthouse run in CI. Manual sweep in Chrome
+      verified no obvious violations, but the automated gate hasn't
+      been wired in yet.
 
 Review checkpoint at end of Phase 4 recommended (PLAN.md §11).
 
