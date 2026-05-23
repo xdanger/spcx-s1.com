@@ -43,17 +43,23 @@ export const UI_STRINGS = {
 
   "stage4.algorithm.callout": { en: "The Algorithm", zh: "算法准则" },
 
+  // Stage titles ship in zh only when the rest of the stage's in-stage
+  // labels (headings, summary toggles, card subtitles) have been
+  // migrated and translated too — otherwise the title reads zh while
+  // the body still reads en, which is more confusing than a uniform en
+  // fallback. PR B₂ will fill the remaining `""` slots alongside the
+  // per-stage label migrations.
   "stage.title.0": stageTitle("Mission Briefing", "任务简报"),
   "stage.title.1": stageTitle("Cold Open", "开场"),
-  "stage.title.2": stageTitle("Who We Are", "我们是谁"),
-  "stage.title.3": stageTitle("The Three Pillars", "三大支柱"),
+  "stage.title.2": stageTitle("Who We Are", ""),
+  "stage.title.3": stageTitle("The Three Pillars", ""),
   "stage.title.4": stageTitle("The Algorithm", "算法准则"),
-  "stage.title.5": stageTitle("The Roadmap", "路线图"),
-  "stage.title.6": stageTitle("The Numbers", "数字"),
-  "stage.title.7": stageTitle("The Anomaly Log", "异常日志"),
-  "stage.title.8": stageTitle("Who Steers the Ship", "由谁掌舵"),
-  "stage.title.9": stageTitle("The Horizon", "远景"),
-  "stage.title.10": stageTitle("End Credits", "片尾字幕"),
+  "stage.title.5": stageTitle("The Roadmap", ""),
+  "stage.title.6": stageTitle("The Numbers", ""),
+  "stage.title.7": stageTitle("The Anomaly Log", ""),
+  "stage.title.8": stageTitle("Who Steers the Ship", ""),
+  "stage.title.9": stageTitle("The Horizon", ""),
+  "stage.title.10": stageTitle("End Credits", ""),
 } as const satisfies Record<string, UiStringEntry>;
 
 export type UiStringId = keyof typeof UI_STRINGS;
