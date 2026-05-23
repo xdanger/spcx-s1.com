@@ -75,6 +75,9 @@ const RiskCard = ({ node, dense = false }: { node: ContentNode; dense?: boolean 
   const severityLabel = useUiString(
     risk?.severity ? SEVERITY_KEY[risk.severity] : "stage7.severity.low",
   );
+  const categoryLabel = useUiString(
+    risk?.category ? CATEGORY_KEY[risk.category] : "stage7.category.mission",
+  );
   const { primary, secondary } = dualText(node, locale);
 
   return (
@@ -95,7 +98,7 @@ const RiskCard = ({ node, dense = false }: { node: ContentNode; dense?: boolean 
         </span>
         {risk?.category ? (
           <span className="font-telemetry text-[10px] uppercase tracking-[0.16em] text-muted-white">
-            {risk.category}
+            {categoryLabel}
           </span>
         ) : (
           <span aria-hidden="true" />
