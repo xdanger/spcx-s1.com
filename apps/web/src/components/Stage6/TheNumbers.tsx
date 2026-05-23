@@ -2,7 +2,7 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale } from "../../hooks/useLocalized";
+import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
 import { cleanProse } from "../../lib/textHelpers";
 import { SourceRef } from "../SourceRef";
@@ -27,6 +27,11 @@ const DETAIL_ORDER = [
 
 export const TheNumbers = ({ nodes }: TheNumbersProps) => {
   const locale = useLocale();
+  const revenueHeading = useUiString("stage6.revenue.heading");
+  const netIncomeHeading = useUiString("stage6.net-income.heading");
+  const verbatimEyebrow = useUiString("stage6.verbatim.eyebrow");
+  const sectionFallback = useUiString("stage6.section.fallback");
+  const fullFinancialHeading = useUiString("stage6.full-financial.heading");
   const kpis = nodes.filter((node) => node.kind === "kpi");
   const revenueKpis = kpis.filter((node) => node.id.startsWith("stage6.kpi.revenue"));
   const netIncomeKpis = kpis.filter((node) => node.id.startsWith("stage6.kpi.net-income"));
@@ -44,7 +49,7 @@ export const TheNumbers = ({ nodes }: TheNumbersProps) => {
             id="stage-6-revenue-title"
             className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal"
           >
-            Revenue trajectory
+            {revenueHeading}
           </h3>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {revenueKpis.map((node) => (
@@ -58,7 +63,7 @@ export const TheNumbers = ({ nodes }: TheNumbersProps) => {
             id="stage-6-net-income-title"
             className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-coral"
           >
-            Net income (loss)
+            {netIncomeHeading}
           </h3>
           <div className="mt-6 grid gap-4 md:grid-cols-3">
             {netIncomeKpis.map((node) => (
@@ -76,7 +81,7 @@ export const TheNumbers = ({ nodes }: TheNumbersProps) => {
               className="border-l-2 border-accent-amber bg-panel-black/40 p-6"
             >
               <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-amber">
-                Verbatim — {node.source?.sectionTitle ?? "Section"}
+                {verbatimEyebrow} — {node.source?.sectionTitle ?? sectionFallback}
               </p>
               <h3
                 id={`${node.id}-title`}
@@ -105,7 +110,7 @@ export const TheNumbers = ({ nodes }: TheNumbersProps) => {
             id="stage-6-tables-title"
             className="font-telemetry text-xs uppercase tracking-[0.18em] text-muted-white"
           >
-            Full financial detail
+            {fullFinancialHeading}
           </h3>
           <div className="mt-6 space-y-4">
             {details.map((node) => {

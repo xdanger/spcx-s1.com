@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { SourceRef as SourceRefType } from "@spcx/content";
 
 import { useReducedMotion } from "../../hooks/useReducedMotion";
+import { useUiString } from "../../hooks/useLocalized";
 import { SourceRef } from "../SourceRef";
 
 interface ClosingLineProps {
@@ -18,6 +19,7 @@ const TYPE_LEAD_DELAY_MS = 180;
 
 export const ClosingLine = ({ text, secondary, source }: ClosingLineProps) => {
   const reducedMotion = useReducedMotion();
+  const closingEyebrow = useUiString("stage9.closing.eyebrow");
   const containerRef = useRef<HTMLDivElement>(null);
   const [typed, setTyped] = useState(text);
   const startedRef = useRef(false);
@@ -76,7 +78,7 @@ export const ClosingLine = ({ text, secondary, source }: ClosingLineProps) => {
   return (
     <div ref={containerRef} className="relative">
       <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-teal">
-        Closing transmission
+        {closingEyebrow}
       </p>
       <p className="mt-6 font-display text-3xl font-light leading-[1.35] text-body-white sm:text-4xl md:text-5xl">
         {typed}

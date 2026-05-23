@@ -2,9 +2,10 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale } from "../../hooks/useLocalized";
+import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
 import { cleanProse, parseList } from "../../lib/textHelpers";
+import type { UiStringId } from "../../lib/uiStrings";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
 
@@ -20,10 +21,16 @@ interface Pillar {
   extras: ContentNode[];
 }
 
-const PILLAR_DEFINITIONS: { marker: string; name: string; idPrefix: string }[] = [
-  { marker: "01", name: "Space", idPrefix: "stage3.space" },
-  { marker: "02", name: "Connectivity", idPrefix: "stage3.connectivity" },
-  { marker: "03", name: "AI", idPrefix: "stage3.ai" },
+interface PillarDefinition {
+  marker: string;
+  nameId: UiStringId;
+  idPrefix: string;
+}
+
+const PILLAR_DEFINITIONS: PillarDefinition[] = [
+  { marker: "01", nameId: "stage3.pillar.01.name", idPrefix: "stage3.space" },
+  { marker: "02", nameId: "stage3.pillar.02.name", idPrefix: "stage3.connectivity" },
+  { marker: "03", nameId: "stage3.pillar.03.name", idPrefix: "stage3.ai" },
 ];
 
 const buildPillar = (
@@ -43,8 +50,22 @@ const buildPillar = (
 
 export const ThreePillars = ({ nodes }: ThreePillarsProps) => {
   const locale = useLocale();
+  const pillarEyebrow = useUiString("stage3.pillar.eyebrow");
+  const detailSummary = useUiString("stage3.detail.summary");
+  const extrasFallback = useUiString("stage3.extras.fallback");
+  const pillarSpace = useUiString("stage3.pillar.01.name");
+  const pillarConnectivity = useUiString("stage3.pillar.02.name");
+  const pillarAI = useUiString("stage3.pillar.03.name");
+
+  const nameFor = (id: UiStringId): string => {
+    if (id === "stage3.pillar.01.name") return pillarSpace;
+    if (id === "stage3.pillar.02.name") return pillarConnectivity;
+    return pillarAI;
+  };
+
   const pillars: Pillar[] = PILLAR_DEFINITIONS.map((def) => ({
-    ...def,
+    marker: def.marker,
+    name: nameFor(def.nameId),
     ...buildPillar(nodes, def.idPrefix),
   }));
 
@@ -68,7 +89,7 @@ export const ThreePillars = ({ nodes }: ThreePillarsProps) => {
             >
               <header className="flex items-baseline gap-4">
                 <span className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-                  Pillar {pillar.marker}
+                  {pillarEyebrow} {pillar.marker}
                 </span>
                 <h3
                   id={`pillar-${pillar.marker}-title`}
@@ -105,7 +126,7 @@ export const ThreePillars = ({ nodes }: ThreePillarsProps) => {
               {pillar.detail && detailDual ? (
                 <details className="group mt-8 border-t border-white/10 pt-6">
                   <summary className="cursor-pointer font-telemetry text-xs uppercase tracking-[0.16em] text-muted-white hover:text-body-white">
-                    Full Business detail
+                    {detailSummary}
                   </summary>
                   <div className="mt-4 space-y-3">
                     <p className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
@@ -131,7 +152,7 @@ export const ThreePillars = ({ nodes }: ThreePillarsProps) => {
                     return (
                       <details key={extra.id} className="border-t border-white/10 pt-6">
                         <summary className="cursor-pointer font-telemetry text-xs uppercase tracking-[0.16em] text-muted-white hover:text-body-white">
-                          {extra.source?.sectionTitle ?? "Additional detail"}
+                          {extra.source?.sectionTitle ?? extrasFallback}
                         </summary>
                         <div className="mt-4 space-y-3">
                           <p className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">

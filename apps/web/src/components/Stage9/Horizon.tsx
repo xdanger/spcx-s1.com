@@ -18,6 +18,12 @@ export const Horizon = ({ nodes }: HorizonProps) => {
   const locale = useLocale();
   const title = useUiString("stage.title.9");
   const eyebrow = useStageEyebrow(9);
+  const kardashevEyebrow = useUiString("stage9.kardashev.eyebrow");
+  const futureMarketsHeading = useUiString("stage9.future-markets.heading");
+  const lunarEyebrow = useUiString("stage9.lunar.eyebrow");
+  const futureDetailSummary = useUiString("stage9.future-detail.summary");
+  const caveatEyebrow = useUiString("stage9.caveat.eyebrow");
+  const caveatTitle = useUiString("stage9.caveat.title");
   const kardashev = nodes.find((node) => node.id === "stage9.horizon.kardashev-framing");
   const futureSummary = nodes.find(
     (node) => node.id === "stage9.horizon.future-markets-summary",
@@ -60,7 +66,7 @@ export const Horizon = ({ nodes }: HorizonProps) => {
           {kardashev && kardashevDual ? (
             <article className="max-w-[68ch] space-y-4">
               <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-teal">
-                Why this matters now — Kardashev Type II framing
+                {kardashevEyebrow}
               </p>
               <pre className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
                 {cleanProse(kardashevDual.primary)}
@@ -83,7 +89,7 @@ export const Horizon = ({ nodes }: HorizonProps) => {
                 id="stage-9-future-title"
                 className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-amber"
               >
-                Future markets
+                {futureMarketsHeading}
               </h3>
               <ul className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
                 {futureItems.map((item, idx) => (
@@ -105,7 +111,7 @@ export const Horizon = ({ nodes }: HorizonProps) => {
           {lunar && lunarDual ? (
             <article className="max-w-[68ch] space-y-4">
               <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-blue">
-                The lunar economy
+                {lunarEyebrow}
               </p>
               <pre className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
                 {cleanProse(lunarDual.primary)}
@@ -125,7 +131,7 @@ export const Horizon = ({ nodes }: HorizonProps) => {
           {futureDetail && futureDetailDual ? (
             <details className="border border-white/10 bg-panel-black/60 backdrop-blur-sm">
               <summary className="cursor-pointer px-5 py-4 font-telemetry text-xs uppercase tracking-[0.16em] text-body-white hover:text-accent-amber">
-                Read the full Future Markets section
+                {futureDetailSummary}
               </summary>
               <div className="border-t border-white/10 px-5 py-5">
                 <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
@@ -150,13 +156,13 @@ export const Horizon = ({ nodes }: HorizonProps) => {
               className="border-l-2 border-accent-amber bg-panel-black/60 p-6 backdrop-blur-sm"
             >
               <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-amber">
-                Commercial viability — verbatim caveat (non-dismissible)
+                {caveatEyebrow}
               </p>
               <h3
                 id="stage-9-caveat-title"
                 className="mt-3 text-2xl font-semibold text-body-white"
               >
-                Timeline and commercial viability remain uncertain
+                {caveatTitle}
               </h3>
               <pre className="mt-5 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
                 {cleanProse(caveatDual.primary)}

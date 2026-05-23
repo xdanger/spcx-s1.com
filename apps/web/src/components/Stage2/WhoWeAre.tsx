@@ -2,7 +2,7 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale } from "../../hooks/useLocalized";
+import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
@@ -14,6 +14,8 @@ interface WhoWeAreProps {
 
 export const WhoWeAre = ({ nodes }: WhoWeAreProps) => {
   const locale = useLocale();
+  const kpisAria = useUiString("stage2.kpis.aria");
+  const milestonesHeading = useUiString("stage2.milestones.heading");
   const prose = nodes.filter((node) => node.kind === "prose");
   const kpis = nodes.filter((node) => node.kind === "kpi");
   const milestones = nodes
@@ -23,11 +25,7 @@ export const WhoWeAre = ({ nodes }: WhoWeAreProps) => {
   return (
     <StageSection id={2}>
       <div className="space-y-20">
-        <div
-          className="grid gap-4 md:grid-cols-3"
-          role="list"
-          aria-label="Headline scale metrics"
-        >
+        <div className="grid gap-4 md:grid-cols-3" role="list" aria-label={kpisAria}>
           {kpis.map((node) => (
             <div key={node.id} role="listitem">
               <Kpi node={node} />
@@ -59,7 +57,7 @@ export const WhoWeAre = ({ nodes }: WhoWeAreProps) => {
 
         <div>
           <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-amber">
-            Milestones
+            {milestonesHeading}
           </p>
           <ol className="mt-6 space-y-5 border-l border-white/15 pl-6">
             {milestones.map((node) => (
