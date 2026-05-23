@@ -24,6 +24,13 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
   const locale = useLocale();
   const title = useUiString("stage.title.5");
   const eyebrow = useStageEyebrow(5);
+  const whyNowEyebrow = useUiString("stage5.why-now.eyebrow");
+  const growthHeading = useUiString("stage5.growth.heading");
+  const growthFallback = useUiString("stage5.growth.fallback");
+  const futureMarketsHeading = useUiString("stage5.future-markets.heading");
+  const growthDetailSummary = useUiString("stage5.growth-detail.summary");
+  const caveatEyebrow = useUiString("stage5.caveat.eyebrow");
+  const caveatTitle = useUiString("stage5.caveat.title");
   const whyNow = nodes.find((node) => node.id === "stage5.roadmap.why-now");
   const growthSummary = nodes.find((node) => node.id === "stage5.roadmap.growth-summary");
   const growthDetail = nodes.find((node) => node.id === "stage5.roadmap.growth-detail");
@@ -61,7 +68,7 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
           {whyNow && whyNowDual ? (
             <article className="max-w-[68ch] space-y-4">
               <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-blue">
-                Why this matters now
+                {whyNowEyebrow}
               </p>
               <pre className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
                 {cleanProse(whyNowDual.primary)}
@@ -84,7 +91,7 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
                 id="stage-5-growth-title"
                 className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-blue"
               >
-                Our growth strategies
+                {growthHeading}
               </h3>
               <div className="grid gap-4 md:grid-cols-2">
                 {groups.map((group) => (
@@ -97,7 +104,7 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
                         GROUP_ACCENT[group.heading] ?? "text-muted-white"
                       }`}
                     >
-                      {group.heading || "Growth"}
+                      {group.heading || growthFallback}
                     </p>
                     <ul className="mt-4 space-y-3">
                       {group.items.map((item, idx) => (
@@ -126,7 +133,7 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
                 id="stage-5-future-title"
                 className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-amber"
               >
-                Future markets
+                {futureMarketsHeading}
               </h3>
               <ul className="grid gap-3 md:grid-cols-2">
                 {futureMarketItems.map((item, idx) => (
@@ -148,7 +155,7 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
           {growthDetail && growthDetailDual ? (
             <details className="border border-white/10 bg-panel-black/60 backdrop-blur-sm">
               <summary className="cursor-pointer px-5 py-4 font-telemetry text-xs uppercase tracking-[0.16em] text-body-white hover:text-accent-blue">
-                Read the full Business — Growth Strategies section
+                {growthDetailSummary}
               </summary>
               <div className="border-t border-white/10 px-5 py-5">
                 <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
@@ -173,13 +180,13 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
               className="border-l-2 border-accent-amber bg-panel-black/60 p-6 backdrop-blur-sm"
             >
               <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-amber">
-                Commercial viability — verbatim caveat
+                {caveatEyebrow}
               </p>
               <h3
                 id="stage-5-caveat-title"
                 className="mt-3 text-2xl font-semibold text-body-white"
               >
-                These initiatives may not achieve commercial viability
+                {caveatTitle}
               </h3>
               <pre className="mt-5 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
                 {cleanProse(caveatDual.primary)}

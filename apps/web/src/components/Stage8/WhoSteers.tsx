@@ -2,9 +2,10 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale } from "../../hooks/useLocalized";
+import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
 import { cleanProse } from "../../lib/textHelpers";
+import type { UiStringId } from "../../lib/uiStrings";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
 
@@ -14,44 +15,97 @@ interface WhoSteersProps {
 
 interface BlockSpec {
   id: string;
-  label: string;
-  description?: string;
+  labelKey: UiStringId;
+  descriptionKey?: UiStringId;
 }
 
+// Each governance block pulls its label and (optional) description from
+// the locale-aware uiStrings registry instead of hard-coding English
+// here. The id field still drives node lookup.
 const BLOCK_ORDER: BlockSpec[] = [
   {
     id: "stage8.governance.founder",
-    label: "Founder & controlled-company status",
-    description:
-      "Mr. Musk's roles inside and outside SpaceX, and what controlled-company status means.",
+    labelKey: "stage8.block.founder.label",
+    descriptionKey: "stage8.block.founder.description",
   },
   {
     id: "stage8.governance.dual-class",
-    label: "Dual-class share structure",
-    description:
-      "Class A (one vote), Class B (ten votes), Class C (reclassified at IPO), Class D (authorized but unused).",
+    labelKey: "stage8.block.dual-class.label",
+    descriptionKey: "stage8.block.dual-class.description",
   },
   {
     id: "stage8.governance.texas-forum",
-    label: "Texas reincorporation & forum selection",
-    description: "Texas Business Court as the exclusive forum for internal-affairs disputes.",
+    labelKey: "stage8.block.texas-forum.label",
+    descriptionKey: "stage8.block.texas-forum.description",
   },
   {
     id: "stage8.governance.musk-dependency",
-    label: "Musk-dependency risk factor",
+    labelKey: "stage8.block.musk-dependency.label",
   },
   {
     id: "stage8.governance.related-party-transactions",
-    label: "Related-party transactions — summary",
+    labelKey: "stage8.block.related-party-transactions.label",
   },
   {
     id: "stage8.governance.related-party-business-detail",
-    label: "Related-party transactions — financial-statement notes",
+    labelKey: "stage8.block.related-party-business-detail.label",
   },
 ];
 
-export const WhoSteers = ({ nodes }: WhoSteersProps) => {
+interface GovernanceBlockProps {
+  node: ContentNode;
+  spec: BlockSpec;
+  index: number;
+}
+
+const GovernanceBlock = ({ node, spec, index }: GovernanceBlockProps) => {
   const locale = useLocale();
+  const label = useUiString(spec.labelKey);
+  const description = useUiString(spec.descriptionKey ?? "stage8.block.musk-dependency.label");
+  const readVerbatim = useUiString("stage8.summary.read-verbatim");
+  const { primary, secondary } = dualText(node, locale);
+
+  return (
+    <article
+      aria-labelledby={`${spec.id}-title`}
+      className="border-l border-accent-blue/40 pl-6"
+    >
+      <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-blue">
+        {String(index + 1).padStart(2, "0")} — {label}
+      </p>
+      <h3
+        id={`${spec.id}-title`}
+        className="mt-3 text-2xl font-semibold text-body-white sm:text-3xl"
+      >
+        {label}
+      </h3>
+      {spec.descriptionKey ? (
+        <p className="mt-3 max-w-[68ch] text-sm text-muted-white">{description}</p>
+      ) : null}
+      <details className="group mt-5 border-t border-white/10 pt-5">
+        <summary className="cursor-pointer font-telemetry text-xs uppercase tracking-[0.16em] text-muted-white hover:text-accent-blue">
+          {readVerbatim}
+        </summary>
+        <div className="mt-4">
+          <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
+            {cleanProse(primary)}
+          </pre>
+          {secondary ? (
+            <pre
+              lang="zh"
+              className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
+            >
+              {cleanProse(secondary)}
+            </pre>
+          ) : null}
+          <SourceRef source={node.source} />
+        </div>
+      </details>
+    </article>
+  );
+};
+
+export const WhoSteers = ({ nodes }: WhoSteersProps) => {
   const blocks = BLOCK_ORDER.map((spec) => ({
     spec,
     node: nodes.find((node) => node.id === spec.id),
@@ -60,48 +114,9 @@ export const WhoSteers = ({ nodes }: WhoSteersProps) => {
   return (
     <StageSection id={8}>
       <div className="space-y-8">
-        {blocks.map(({ spec, node }, index) => {
-          const { primary, secondary } = dualText(node, locale);
-          return (
-            <article
-              key={spec.id}
-              aria-labelledby={`${spec.id}-title`}
-              className="border-l border-accent-blue/40 pl-6"
-            >
-              <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-blue">
-                {String(index + 1).padStart(2, "0")} — {spec.label}
-              </p>
-              <h3
-                id={`${spec.id}-title`}
-                className="mt-3 text-2xl font-semibold text-body-white sm:text-3xl"
-              >
-                {spec.label}
-              </h3>
-              {spec.description ? (
-                <p className="mt-3 max-w-[68ch] text-sm text-muted-white">{spec.description}</p>
-              ) : null}
-              <details className="group mt-5 border-t border-white/10 pt-5">
-                <summary className="cursor-pointer font-telemetry text-xs uppercase tracking-[0.16em] text-muted-white hover:text-accent-blue">
-                  Read the verbatim source
-                </summary>
-                <div className="mt-4">
-                  <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                    {cleanProse(primary)}
-                  </pre>
-                  {secondary ? (
-                    <pre
-                      lang="zh"
-                      className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
-                    >
-                      {cleanProse(secondary)}
-                    </pre>
-                  ) : null}
-                  <SourceRef source={node.source} />
-                </div>
-              </details>
-            </article>
-          );
-        })}
+        {blocks.map(({ spec, node }, index) => (
+          <GovernanceBlock key={spec.id} spec={spec} node={node} index={index} />
+        ))}
       </div>
     </StageSection>
   );
