@@ -205,4 +205,239 @@ export const zhTranslations: Readonly<Record<string, string>> = Object.freeze({
     "我们面临的挑战\n本节内容与 Stage 5 的商业化可行性提示重复呈现，并不可被关闭——所有未来市场（包括 Starship 规模化、轨道 AI 算力、月球经济、跨行星运输、人类增强等）都可能在长时间内无法实现商业化。请把本节视为对所有未来市场板块的统一注意提示，并参阅 Stage 5 与本节英文原文中关于挑战、不确定性与时间表的完整描述。",
   "stage9.horizon.closing-line":
     "在地球上重新定义产业，在月球、火星及更远处缔造新产业——我们正在真正地建造未来的基础设施。",
+
+  // Stage 10 — End Credits + Forward-Looking Statements caveat + 122
+  // glossary entries. Glossary terms keep their English form because
+  // they're the lookup keys and the on-screen heading; only the
+  // definition body translates. Proper nouns (SpaceX, Falcon 9, Grok,
+  // Starlink, COLOSSUS, etc.) stay English inside the Chinese body.
+  // The four authored credit lines are by Kros Dai for the project.
+
+  "stage10.credits.authorship": "SpaceX S-1 Interactive 是由 Kros Dai 制作的爱好者项目。",
+  "stage10.credits.license":
+    "代码以 MIT License 发布；S-1 原文为美国证券交易委员会（SEC）公开文件。",
+  "stage10.credits.github": "源代码：https://github.com/xdanger/spcx-s1.com",
+  "stage10.credits.contact": "联系方式：y@dai.co",
+
+  "stage10.caveat.forward-looking-statements":
+    "前瞻性陈述提示（Cautionary Statement Regarding Forward-Looking Statements）\n本招股说明书包含若干前瞻性陈述，涉及但不限于：Starship 的研发与按预定时间表的部署（包括 2026 年开始向轨道交付载荷）、发射频次以及在性能、可复用性与成本效率方面的目标；我们现有与未来市场（包括商业发射服务、卫星连接服务、AI 平台、地面与轨道 AI 算力基础设施、月球与跨行星活动）的规模与增长；对我们产品与服务的需求；下一代 Starlink 卫星、卫星到移动连接和轨道 AI 算力基础设施的部署（包括最早 2028 年开始的轨道 AI 算力卫星）；目标发射频次以及制造与运营产能的扩张；以可持续方式扩展业务的能力；解决新问题并将前所未有的技术与环境商业化的能力；设计、开发并成功商业化新技术与产品的能力（包括 AI 平台与 Terafab，以及实现并保持低 token 单价）；扩大与变现 AI 产品与服务（包括前沿模型、相关应用、以及与 Cursor 等安排带来的协同）的能力；资本开支的规模、性质与时间表；获取充足电力、GPU 与其他关键组件的能力；获得并维持监管批准、许可证与频谱授权（包括美国与国际范围）的能力；竞争环境与有效竞争的能力；空间运营、通信、AI、数据隐私等领域法规的实施与影响；作为上市公司可获得的好处与风险；以及总体经济状况。\n此类前瞻性陈述常以“预期”、“相信”、“估计”、“预计”、“打算”、“可能”、“展望”、“计划”、“潜在”、“预测”、“项目”、“将”、“应当”、“可能”、“可能将”、“likely”、“未来”、“预算”、“目标”、“致力于”、“追求”、“target”、“seek”、“objective”等用词为标志，或与之相反、相似的表达。我们提醒您，前述清单不一定包含本招股说明书中所有的前瞻性陈述。\n本招股说明书中的前瞻性陈述仅在本招股说明书日期或本文另行注明的日期具有效力。除法律要求外，我们无义务更新这些陈述，亦提醒您不要过度依赖。前瞻性陈述并非未来业绩的保证，涉及风险与不确定性。我们基于现有的预期与假设作出这些陈述。覆盖多年时间范围或未知时间表的预测、目标与里程碑天然具有更高的不确定性，实际结果可能与当前预期存在重大差异。尽管管理层认为这些预期与假设是合理的，它们仍然受到重大的商业、经济、竞争、监管、技术、环境、政治与其他风险、突发事件与不确定性的影响，许多因素难以预测且不在我们控制之内。详细描述见本招股说明书“Risk Factors”与“Management's Discussion and Analysis of Financial Condition and Results of Operations”章节。若任何风险或不确定性发生，或基础假设被证伪，我们的实际经营结果、业绩、成就或计划可能与前瞻性陈述所明示或暗示的内容存在重大差异。此外，由于我们运营在快速演变、高度竞争的市场，我们可能不时根据技术发展、竞争态势、监管变化或其他因素调整战略优先级、资本配置、产品或服务重点与运营计划，这些调整可能导致实际结果与前瞻性陈述所明示或暗示的内容存在重大差异。新的风险会不断出现，部分风险天然不可预知，管理层无法预测全部此类风险。许多可能对我们或我们前景产生重大不利影响的风险与不确定性超出我们的控制，或涉及战略中具有较长时间跨度或前所未有的项目。请将这些不确定性纳入您对投资我们 Class A 普通股的整体评估。本招股说明书中的所有前瞻性陈述均完全受本章节中警示性声明的限定。",
+
+  "stage10.glossary.ai":
+    "“AI”或“artificial intelligence”指能够让机器进行学习、理解现实、解决复杂问题、展现创造力、做出关键决策并以日益自主的方式运行的先进计算技术与系统。",
+  "stage10.glossary.ai-compute":
+    "“AI compute”或“compute”指训练与运行人工智能模型所需的算力基础设施，包括但不限于部署在数据中心或其他算力环境中的专用处理器、网络、存储与电源系统。",
+  "stage10.glossary.ai-compute-satellite":
+    "“AI compute satellite”指配备机载 AI 处理能力、能够在轨完成数据分析、推理或其他机器学习、自动化决策与人工智能算法、模型与技术工作负载的卫星。",
+  "stage10.glossary.ai-ecosystem":
+    "“AI ecosystem”指由多层次的技术、产品、系统与基础设施构成的复杂网络，用于开发、利用并部署智能系统。",
+  "stage10.glossary.ai-segment":
+    "“AI segment”指我们于 2026 年 2 月通过收购 xAI 形成的 AI 业务板块，包含 AI 算力、Grok 与 X。",
+  "stage10.glossary.ai-training-cluster":
+    "“AI training cluster”指为训练与运行先进 AI 模型提供算力的集成系统。",
+  "stage10.glossary.the-algorithm":
+    "“The Algorithm”指我们用于快速创新与优化的五步迭代流程，依次为：让需求“less dumb”、删除不必要的过程或部件、优化必要的过程或部件、加快周期时间、并仅在前四步完成后对已验证的过程进行自动化。",
+  "stage10.glossary.application-programming-interface":
+    "“Application Programming Interface”（API）指一套规则与协议，使不同的软件系统能够以编程方式相互通信与交互。",
+  "stage10.glossary.arpu":
+    "“ARPU”指一段期间内 Starlink Subscribers 产生的服务收入除以（i）该期间内 Starlink Subscribers 的平均数量再除以（ii）该期间的月数。",
+  "stage10.glossary.artemis-program":
+    "“Artemis program”指 NASA 旨在 2020 年代末让人类重返月球的项目。",
+  "stage10.glossary.booster": "“booster”指发射过程中提供主要推力的第一级火箭。",
+  "stage10.glossary.booster-catch":
+    "“booster catch”指返回的一级火箭助推器被发射塔上的机械臂在空中捕获的回收方式，而非降落在着陆区或海上的着陆腿上。",
+  "stage10.glossary.booster-launch":
+    "“booster launch”指由助推级提供升空与上升初段主要推力、随后与运载器分离的火箭发射方式。",
+  "stage10.glossary.bps": "“bps”指 bits per second（每秒比特）。",
+  "stage10.glossary.colossus":
+    "“COLOSSUS”指我们位于田纳西州 Memphis 的 Paul R. Lowry Road 的旗舰数据中心。",
+  "stage10.glossary.colossus-ii":
+    "“COLOSSUS II”指我们位于田纳西州 Memphis 与密西西比州 Southaven 的数据中心，是我们一体化吉瓦级 AI 训练集群的组成部分。",
+  "stage10.glossary.connectivity-segment":
+    "“Connectivity segment”指我们的连接业务板块，包含 Starlink 及相关产品。",
+  "stage10.glossary.credit-agreements":
+    "“Credit Agreements”指我们的 SpaceX Credit Facility 与 SpaceX Bridge Loan。",
+  "stage10.glossary.crewmember": "“crewmember”指曾乘坐我们飞船的人，按每次任务计量。",
+  "stage10.glossary.daily-posts":
+    "“daily posts”指用户每天在 X 平台上分享的原创帖子、回复、转发、引用与多媒体的总量，以及 Grok 为用户提供的实时互动、分析与生成能力。该统计可能包括由 AI 生成的帖子或由 AI 管理的账户。",
+  "stage10.glossary.downlink-capacity":
+    "“downlink capacity”指给定时间内，单颗卫星在网络或通信链路上向用户传输数据的最大速率。",
+  "stage10.glossary.draco-thrusters":
+    "“Draco thrusters”指 Dragon 飞船中用于精确轨道机动与姿态调整的推力器。",
+  "stage10.glossary.dragon": "“Dragon”指我们的 Dragon 飞船。",
+  "stage10.glossary.falcon-1":
+    "“Falcon 1”指我们 2006 年至 2009 年运营的两级液体燃料小型运载火箭。",
+  "stage10.glossary.falcon-9":
+    "“Falcon 9”指我们 2010 年首飞的轨道级可复用助推器火箭，近地轨道（LEO）有效载荷约 23 公吨。",
+  "stage10.glossary.falcon-heavy":
+    "“Falcon Heavy”指我们 2018 年首飞的部分可复用超重型运载火箭，近地轨道（LEO）有效载荷约 64 公吨。",
+  "stage10.glossary.flight-proven-booster-launches":
+    "“flight-proven booster launches”指使用此前已成功完成至少一次发射并回收的助推器执行的任务。",
+  "stage10.glossary.frontier-model":
+    "“frontier model”指 Grok 这类专为严谨推理与实时信息综合而设计的前沿大语言模型。",
+  "stage10.glossary.gbps": "“Gbps”指 gigabits per second（每秒吉比特）。",
+  "stage10.glossary.geostationary-orbit":
+    "“geostationary orbit”（地球静止轨道）指卫星与地球自转保持同步、从地面看起来静止不动的高地球轨道，常用于通信卫星。",
+  "stage10.glossary.geosynchronous-transfer-orbit":
+    "“geosynchronous transfer orbit”（地球同步转移轨道）指用于将航天器从低轨转移到地球静止轨道的椭圆轨道。",
+  "stage10.glossary.gigawatt": "“gigawatt”指十亿瓦（一吉瓦）。",
+  "stage10.glossary.gigawatt-scale":
+    "“gigawatt-scale”指设计为发电、输电或耗电约一吉瓦或以上电力容量的基础设施、系统或设施。",
+  "stage10.glossary.gpu": "“GPU”指 graphics processing unit（图形处理器）。",
+  "stage10.glossary.grok":
+    "“Grok”指我们的前沿模型家族，是我们通过研发求真 AI 来推进人类对宇宙理解这一使命的核心支柱之一。",
+  "stage10.glossary.grok-api":
+    "“Grok API”指我们提供的应用程序接口，允许开发者将 Grok 模型集成到外部软件应用与工作流程中。",
+  "stage10.glossary.grok-business":
+    "“Grok Business”指我们面向中小团队、提供 Grok 模型与相关工具用于内部业务应用与工作流程的订阅型服务。",
+  "stage10.glossary.grok-enterprise":
+    "“Grok Enterprise”指我们面向大型企业、提供 Grok 模型与相关工具用于内部业务应用与工作流程的订阅型服务。",
+  "stage10.glossary.grok-voice": "“Grok Voice”指 Grok 的实时语音引擎。",
+  "stage10.glossary.high-density-compute":
+    "“high-density compute”指在有限物理空间内提供大量算力的算力基础设施，通常具有较高的处理器密度与单位空间内更高的耗电。",
+  "stage10.glossary.imagine": "“Imagine”指我们的图像与视频生成系统。",
+  "stage10.glossary.inference":
+    "“inference”指训练完成的 AI 模型基于新输入数据生成输出（文本、图像或预测等）的过程。",
+  "stage10.glossary.international-docking-system-standard":
+    "“International Docking System Standard”指 Dragon 等飞船所采用的自主对接能力标准。",
+  "stage10.glossary.iot":
+    "“IoT”指嵌入传感器、软件与其他技术、用于通过互联网与其他设备和系统连接与交换数据的物理对象组成的网络。",
+  "stage10.glossary.kardashev-type-ii":
+    "“Kardashev Type II”指能够利用其所在恒星（如太阳）全部能量输出、以支撑前所未有增长与文明存续的文明。",
+  "stage10.glossary.large-language-model":
+    "“large language model”（LLM）指为先进推理与自然语言处理设计的高级人工智能模型。",
+  "stage10.glossary.large-scale-leo-broadband-satellite-constellation":
+    "“large-scale LEO broadband satellite constellation”指由超过 1,000 颗卫星组成的卫星星座网络。",
+  "stage10.glossary.latency":
+    "“latency”（时延）指数据从源端发出到目的端接收之间的延迟，通常以毫秒计。",
+  "stage10.glossary.launch-payload-mass":
+    "“launch payload mass”指特定航天器在特定条件下、根据先进计算机模拟与性能建模在特定任务场景与轨道假设下、理论上能够送达指定轨道的载荷质量。具体任务的实际可送达载荷可能不同，取决于任务参数与运营因素。",
+  "stage10.glossary.launch-system":
+    "“launch system”指由火箭与相关地面基础设施组成、用于将航天器与载荷送入太空的综合系统。",
+  "stage10.glossary.launch-vehicle":
+    "“launch vehicle”指设计用于将载荷从地球、月球或火星等天体送入太空或指定轨道的火箭。",
+  "stage10.glossary.leo-satellite-constellation":
+    "“LEO satellite constellation”指在低地球轨道运行的卫星网络，通常用于提供宽带连接等服务（如 Starlink）。",
+  "stage10.glossary.low-earth-orbit":
+    "“Low-Earth Orbit”（LEO）指相对接近地球表面的轨道，常用于宽带互联网等应用，因相对高轨道具有更低时延。",
+  "stage10.glossary.low-latency-network": "“low-latency network”指时延低于 70 毫秒的网络。",
+  "stage10.glossary.lunar-mass-driver":
+    "“lunar mass driver”指我们计划在月球表面建设的发射系统，采用电磁加速方式将载荷推入太空，而无需使用火箭。",
+  "stage10.glossary.macrohard":
+    "“Macrohard”指我们正在研发的平台，旨在模拟数字工作流程、增强人类对计算机的操作、并创建一家完全由 AI 运营的软件公司。",
+  "stage10.glossary.mass-to-orbit":
+    "“mass to orbit”指给定期间内部署到轨道的总载荷（以千克计），是衡量我们运力与可扩展性的关键指标，支撑 Space 收入并推动 Connectivity 与 AI 板块的扩张。",
+  "stage10.glossary.mau":
+    "“MAU”（monthly active users）指截至测量日的 30 天内通过网页或移动应用与 Grok 或 X 至少互动过一次的注册用户总数。跨平台合计时，我们基于登录流量识别同时使用两个平台的用户，避免重复计数。仅注册用户被包含在统计内。我们的方法对 MAU 提供合理近似，但不一定捕获所有重复实例。",
+  "stage10.glossary.mbps": "“Mbps”指 megabits per second（每秒兆比特）。",
+  "stage10.glossary.megapack":
+    "“Megapack”指 Tesla 生产的集装箱式公用事业级锂离子电池储能系统，用于电网稳定、可再生能源储存以及替代化石燃料调峰电厂。",
+  "stage10.glossary.megawatt": "“megawatt”指一百万瓦（一兆瓦）。",
+  "stage10.glossary.merlin":
+    "“Merlin”指 Merlin 系列发动机，包括真空版与海平面版，由公司完全自主研发与生产。",
+  "stage10.glossary.microgravity":
+    "“microgravity”（微重力）指如在轨航天器中所经历的极弱重力，可用于制造超纯材料等独特工艺。",
+  "stage10.glossary.mid-earth-orbit":
+    "“Mid-Earth Orbit”（MEO）指地球表面上方约 2,000 公里至 35,786 公里之间的轨道区域。",
+  "stage10.glossary.mission-success-rate":
+    "“mission success rate”指 Falcon 9 与 Falcon Heavy 任务实现主要目标的比例，不包含 Starship 飞行测试。",
+  "stage10.glossary.mobile-network-operators":
+    "“mobile network operators”（MNOs）指向客户提供移动电话服务的本地运营商，SpaceX 与之合作提供卫星到移动的连接；适用时也可包含移动虚拟运营商（MVNO）。",
+  "stage10.glossary.mobile-satellite-service":
+    "“Mobile Satellite Service”指通过在轨卫星而非地面蜂窝塔向移动设备提供无线语音、消息与数据连接的服务。",
+  "stage10.glossary.moore-s-law":
+    "“Moore's Law”指一项观察（而非物理定律）：微芯片上的晶体管数量大约每两年翻倍，从而带来电子产品在速度、体积与成本上的指数级改进。",
+  "stage10.glossary.orbital-ai-compute":
+    "“orbital AI compute”指计划部署在太空的人工智能算力基础设施，由作为轨道数据中心的卫星星座组成，利用太阳能供电并借助太空环境进行冷却。我们计划最早在 2028 年开始部署轨道 AI 算力卫星。",
+  "stage10.glossary.payload":
+    "“payload”（载荷）指运载器总质量中由货物、乘员、卫星或其他任务相关物品组成、并送达目标轨道或目的地的部分；与总质量（即包括载荷、燃料/推进剂、结构、发动机与其他部分的整体起飞质量）不同。",
+  "stage10.glossary.payload-capacity-to-orbit":
+    "“payload capacity to orbit”指特定运载工具在特定条件下、根据先进计算机模拟与性能建模在特定任务场景与轨道假设下，理论上能够送达指定轨道（如 LEO 或 GEO）或天体（如 Mars）的载荷能力。具体任务的实际可送达载荷可能不同。",
+  "stage10.glossary.power-usage-effectiveness":
+    "“Power Usage Effectiveness”（PUE）指数据中心能效的全球标准指标，等于设施总耗电除以 IT 设备耗电。",
+  "stage10.glossary.propellant":
+    "“propellant”（推进剂）指火箭发动机消耗、通过产生高速排气来生成推力的化学物质或物质组合。",
+  "stage10.glossary.propulsive-landing":
+    "“propulsive landing”指利用发动机控制下降并实现软垂直着陆的火箭或飞船着陆方式。",
+  "stage10.glossary.radiative-cooling":
+    "“radiative cooling”（辐射冷却）指通过向太空辐射散热的冷却方法，通常为被动方式，预计将用于轨道 AI 算力基础设施。",
+  "stage10.glossary.raptor-engines":
+    "“Raptor engines”指由公司研发和生产的高性能发动机家族，为 Super Heavy 助推器和 Starship 上面级提供动力，专为效率与可复用性而设计。",
+  "stage10.glossary.reflight":
+    "“reflight”指对完成过先前太空任务并被回收、翻新、再认证的火箭助推器或上面级的再次使用。",
+  "stage10.glossary.return-payload-mass":
+    "“return payload mass”指特定飞船在特定条件下、根据先进计算机模拟与性能建模在特定任务场景与轨道假设下，理论上能够从指定轨道带回地球的载荷质量。实际可返回载荷可能不同。",
+  "stage10.glossary.rideshare":
+    "“rideshare”指由多家客户的多颗卫星或载荷共同搭乘同一次火箭发射、共享发射成本的太空任务类型。",
+  "stage10.glossary.satellite-to-mobile":
+    "“satellite-to-mobile”指通过卫星直接为日常智能手机提供全球蜂窝连接的服务，对地面网络起补充作用并消除移动盲区。",
+  "stage10.glossary.service-line":
+    "“Service Line”指根据 Starlink 订阅计划开通的单一 Starlink 宽带服务实例，通常与某个 Starlink User Terminal 或一组终端关联，并按 Starlink 服务计划与条款计费。Service Lines 数量与唯一设备数、账户持有人数、最终用户数或自然人数均不同。",
+  "stage10.glossary.space-economy":
+    "“space economy”指与开发、生产和运营依托或支撑天基基础设施与能力的商品与服务相关的经济活动，包括发射服务、卫星系统与依托太空的技术。",
+  "stage10.glossary.space-segment":
+    "“Space segment”指我们的太空业务板块，包含客户发射运营以及 Falcon、Dragon、Starship 等产品。",
+  "stage10.glossary.spacex-bridge-loan":
+    "“SpaceX Bridge Loan”指 2026 年 3 月 2 日由公司（作为借款人）、不时加入的担保人与放贷人以及作为管理代理与放贷人的 Goldman Sachs Bank USA 签订的 Bridge Loan Credit Agreement。",
+  "stage10.glossary.spacex-credit-facility":
+    "“SpaceX Credit Facility”指 2025 年 2 月 7 日由公司（作为借款人）、不时加入的担保人与放贷人以及作为管理代理的 Bank of America, N.A. 签订的 Credit Agreement，经由 2026 年 3 月 2 日的 First Amendment to Credit Agreement and Waiver 修订；2026 年 5 月再次修订以提高借款额度并延长到期日。",
+  "stage10.glossary.spectrum":
+    "“spectrum”指用于无线通信的电磁频率范围；获得许可的频谱允许用于特定服务。",
+  "stage10.glossary.starlink":
+    "“Starlink”指我们设计为在全球范围内提供高速、低时延互联网连接的全球低地球轨道卫星星座与宽带网络。",
+  "stage10.glossary.starlink-consumer-broadband":
+    "“Starlink Consumer Broadband”指包含个人住宅用户（家庭与个人使用）和中小型企业的 Starlink 活跃用户类别。",
+  "stage10.glossary.starlink-fixed-site":
+    "“Starlink Fixed Site”指仅包含企业类客户的 Starlink 活跃用户类别。",
+  "stage10.glossary.starlink-kit":
+    "“Starlink Kit”指接入 Starlink 网络所需的产品组合，通常包括一台 Starlink User Terminal 及相关配件。",
+  "stage10.glossary.starlink-mobile":
+    "“Starlink Mobile”指通过卫星直接为日常智能手机提供蜂窝连接的服务，对地面网络起补充作用并大幅减少移动盲区。",
+  "stage10.glossary.starlink-subscriber":
+    "“Starlink Subscriber”指直接绑定到 Starlink.com 账户（属于未与 Starlink 销售团队达成直接谈判协议的个人或实体）的唯一 Service Line。",
+  "stage10.glossary.starlink-user-terminal":
+    "“Starlink User Terminal”指由公司研发、用于接入 Starlink 卫星星座以提供高速、低时延互联网的设备。",
+  "stage10.glossary.starshield": "“Starshield”指专为政府客户与国家安全应用设计的安全卫星网络。",
+  "stage10.glossary.starship":
+    "“Starship”指完全可复用的超重型运载火箭。Starship 既可指堆叠状态的运载器（助推器与上面级），也可仅指上面级。我们预计 Starship 将在 2026 年下半年开始向轨道交付载荷。",
+  "stage10.glossary.sun-synchronous-orbit":
+    "“Sun-synchronous orbit”（太阳同步轨道）指卫星每天以相同当地平太阳时经过行星表面任意点的极轨，便于以稳定方式获取太阳能。",
+  "stage10.glossary.super-heavy":
+    "“Super Heavy”指 Starship 运载器的可复用第一级助推器，由 33 台 Raptor 发动机驱动。",
+  "stage10.glossary.supergrok":
+    "“SuperGrok”指为用户提供更高 Grok 模型与相关工具使用权限的订阅型 Grok 服务。",
+  "stage10.glossary.supergrok-heavy":
+    "“SuperGrok Heavy”指为用户提供更高 Grok 模型与相关工具使用权限（相较 SuperGrok 有更高用量上限）的订阅型 Grok 服务层级。",
+  "stage10.glossary.supergrok-lite":
+    "“SuperGrok Lite”指为用户提供 Grok 模型与相关工具基础使用权限的订阅型 Grok 服务层级。",
+  "stage10.glossary.supported-accounts":
+    "“supported accounts”在 X 平台与 Grok 语境中指登录过 X 平台或 Grok 的人类、机器人或类似账户。supported accounts 总数可能包括虚假、垃圾或机器人账户（如果它们活跃）。",
+  "stage10.glossary.tbps": "“Tbps”指 terabits per second（每秒太比特）。",
+  "stage10.glossary.terafab":
+    "“Terafab”指一项芯片制造计划，长期目标是每年生产一太瓦的算力硬件。",
+  "stage10.glossary.terawatt": "“terawatt”指一万亿瓦（一太瓦）。",
+  "stage10.glossary.terawatt-scale":
+    "“terawatt-scale”指设计为发电、输电或耗电约一太瓦或以上电力容量的基础设施、系统或设施。",
+  "stage10.glossary.terrestrial-ai-compute":
+    "“terrestrial AI compute”指位于地球上的 AI 算力基础设施，如数据中心与超级计算机，用于训练与运行 AI 模型。",
+  "stage10.glossary.throughput":
+    "“throughput”指数据或物料的处理或传输速率，常指网络容量或生产产能。",
+  "stage10.glossary.tokens":
+    "“tokens”指 AI 模型处理与生成的文本或图像基本单位，用于衡量 AI 工作负载、吞吐量与计算输出。",
+  "stage10.glossary.watt":
+    "“watt”指国际单位制（SI）中测量功率的单位，表示能量传输、使用或产生的速率。",
+  "stage10.glossary.x":
+    "“X”指我们的实时信息、娱乐与言论自由平台，作为 AI 生态的基础分发与数据引擎。",
+  "stage10.glossary.xai":
+    "“xAI”指 X.AI Holdings LLC（或在 xAI Merger 前的 X.AI Holdings Corp.）及其子公司（视具体情况而定）。",
+  "stage10.glossary.xai-gov":
+    "“xAI Gov”指我们面向政府客户提供 Grok 模型与相关工具的产品，供其用于政府应用、工作流程与服务。",
+  "stage10.glossary.x-premium": "“X Premium+”指 X 的最高订阅层级。",
+  "stage10.glossary.v1-mobile-satellites":
+    "“V1 Mobile satellites”指我们为移动设备提供轻量数据、短信（SMS）和 over-the-top 语音服务（如 WhatsApp 与 FaceTime）的移动卫星，目前已在轨，由 Falcon 火箭发射。",
+  "stage10.glossary.v2-mini-satellites":
+    "“V2 Mini satellites”指我们为家庭、企业与车辆提供高速互联网的当前宽带卫星，目前已在轨，由 Falcon 火箭发射。",
+  "stage10.glossary.v2-mobile-satellites":
+    "“V2 Mobile satellites”指我们的下一代移动卫星，旨在提供更全面的卫星到移动服务（包括宽带数据与 IoT 连接），我们预计将于 2027 年开始在 Starship 上部署。",
+  "stage10.glossary.v3-satellites":
+    "“V3 satellites”指我们的下一代 Starlink 宽带卫星，单星下行容量设计为 1 Tbps，我们预计将于 2026 年下半年开始在 Starship 上部署。",
 });
