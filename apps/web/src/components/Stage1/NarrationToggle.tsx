@@ -96,7 +96,10 @@ export const NarrationToggle = () => {
       type="button"
       onClick={handleToggle}
       aria-pressed={ttsOn}
-      className="mt-6 inline-flex items-center gap-2 border border-white/20 px-4 py-2 font-telemetry text-[11px] uppercase tracking-[0.18em] text-muted-white transition-colors hover:border-accent-teal hover:text-body-white"
+      // `self-start` overrides the parent flex column's default
+      // `align-items: stretch`, so the button shrinks to its content
+      // instead of spanning the full quote width.
+      className="mt-6 inline-flex items-center gap-2 self-start border border-white/20 px-4 py-2 font-telemetry text-[11px] uppercase tracking-[0.18em] text-muted-white transition-colors hover:border-accent-teal hover:text-body-white"
     >
       <span aria-hidden="true">{ttsOn ? "■" : "▶"}</span>
       <span>{ttsOn ? stopLabel : playLabel}</span>

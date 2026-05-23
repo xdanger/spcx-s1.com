@@ -46,7 +46,12 @@ export const MissionBriefing = ({ nodes }: MissionBriefingProps) => {
     <dialog
       ref={dialogRef}
       aria-labelledby="mission-briefing-title"
-      className="w-[min(42rem,calc(100vw-2rem))] border border-white/20 bg-panel-black p-0 text-body-white backdrop:bg-black/80"
+      // `m-auto` restores the native `<dialog>` centering that the
+      // Tailwind v4 preflight strips by resetting all element margins
+      // to 0. Without it the modal anchors to the top-left of the
+      // viewport instead of the document center, which reads as a
+      // broken positioning bug to first-time visitors.
+      className="m-auto w-[min(42rem,calc(100vw-2rem))] border border-white/20 bg-panel-black p-0 text-body-white backdrop:bg-black/80"
       onCancel={(event) => {
         event.preventDefault();
         dismiss();
