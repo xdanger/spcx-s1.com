@@ -56,9 +56,15 @@ export const MissionBriefing = ({ nodes }: MissionBriefingProps) => {
         <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
           {eyebrow}
         </p>
-        <h1 id="mission-briefing-title" className="mt-3 text-3xl font-semibold leading-tight">
+        {/* Heading is `h2`, not `h1`: the canonical document outline is rooted
+            in Stage 0's section so the modal stays inside that hierarchy.
+            Axe-core treats multiple h1s as a structural violation, and the
+            dialog's accessible name is already provided via aria-labelledby
+            on the <dialog>, so demoting this to h2 doesn't lose any AT
+            context. */}
+        <h2 id="mission-briefing-title" className="mt-3 text-3xl font-semibold leading-tight">
           {title}
-        </h1>
+        </h2>
         <div className="mt-6 space-y-4 text-sm text-muted-white sm:text-base">
           {nodes.map((node) => {
             const { primary, secondary } = dualText(node, locale);
