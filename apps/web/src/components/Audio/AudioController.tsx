@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { BGM, SFX, STAGE_1_TTS } from "../../lib/audioManifest";
 import { useUIStore } from "../../stores/uiStore";
@@ -13,12 +13,16 @@ import { useUIStore } from "../../stores/uiStore";
 //     under `prefers-reduced-motion: reduce`. It loops indefinitely
 //     and survives across stage scrolls.
 //   - Per-stage SFX cues fire from IntersectionObservers attached to
-//     the matching section id. Each cue is loaded lazily on first
-//     intersection and only plays once per session.
+//     the matching section id. Each cue only plays once per session
+//     (tracked by a separate "played" set, distinct from the cache of
+//     `<audio>` elements so re-enabling audio after a brief opt-out
+//     re-arms the observer instead of being silently skipped).
 //
 // The mobile gate (`max-width: 768px`) suppresses SFX entirely so
 // shared-context readers don't get sudden bursts; BGM is the floor
-// because users opted into "audio on" knowingly.
+// because users opted into "audio on" knowingly. The gate is tracked
+// reactively via matchMedia so a viewport resize or rotation flips
+// behavior without waiting for the next store change.
 //
 // Files referenced here live under `apps/web/public/audio/` and ride
 // alongside the static export. The component renders nothing — it is
@@ -26,9 +30,27 @@ import { useUIStore } from "../../stores/uiStore";
 
 const MOBILE_QUERY = "(max-width: 768px)";
 
-const isMobileViewport = (): boolean => {
-  if (typeof window === "undefined") return false;
-  return window.matchMedia(MOBILE_QUERY).matches;
+const useIsMobile = (): boolean => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return undefined;
+    if (typeof window.matchMedia !== "function") return undefined;
+
+    const media = window.matchMedia(MOBILE_QUERY);
+    setIsMobile(media.matches);
+
+    const update = (event: MediaQueryListEvent) => {
+      setIsMobile(event.matches);
+    };
+    media.addEventListener("change", update);
+
+    return () => {
+      media.removeEventListener("change", update);
+    };
+  }, []);
+
+  return isMobile;
 };
 
 const observeStageEnter = (stageId: string, onEnter: () => void): (() => void) => {
@@ -62,13 +84,18 @@ export const AudioController = () => {
   const ttsOn = useUIStore((state) => state.ttsOn);
   const reducedMotion = useUIStore((state) => state.reducedMotion);
   const hasHydrated = useUIStore((state) => state.hasHydrated);
+  const isMobile = useIsMobile();
 
-  // BGM owns its own audio element; SFX cues live in a map keyed by
-  // node id. We keep the SFX map in a ref so re-renders don't reset
-  // playback bookkeeping (each cue plays once per session).
+  // BGM owns its own audio element so re-renders don't reset playback
+  // position. SFX cache lives in a ref keyed by cue id — distinct
+  // from `sfxPlayedRef`, which tracks "this cue has fired in this
+  // session" so a brief audio toggle off/on doesn't permanently
+  // silence the cue.
   const bgmRef = useRef<HTMLAudioElement | null>(null);
   const sfxRef = useRef<Map<string, HTMLAudioElement>>(new Map());
+  const sfxPlayedRef = useRef<Set<string>>(new Set());
   const ttsRef = useRef<HTMLAudioElement | null>(null);
+  const ttsPlayedRef = useRef(false);
 
   // BGM lifecycle: create once, then play/pause based on `audioOn`
   // and the reduced-motion gate. Re-creating the element when the
@@ -105,35 +132,44 @@ export const AudioController = () => {
     };
   }, [audioOn, reducedMotion, hasHydrated]);
 
-  // Stage-1 SFX: fires once when Stage 1 scrolls into view, gated on
-  // audio being on, not reduced-motion, and not mobile.
+  // Stage-1 SFX: fires once per session when Stage 1 scrolls into
+  // view, gated on audio being on, not reduced-motion, and not
+  // mobile. Important: the observer attaches every time the gates
+  // flip on — opting out then back in re-arms the observer without
+  // losing the cue (only `sfxPlayedRef` is the permanent latch).
   useEffect(() => {
     if (!hasHydrated) return undefined;
-    if (!audioOn || reducedMotion) return undefined;
-    if (isMobileViewport()) return undefined;
+    if (!audioOn || reducedMotion || isMobile) return undefined;
 
     const cue = SFX["stage1.cold-open"];
     if (!cue) return undefined;
-    if (sfxRef.current.has(cue.id)) return undefined;
+    if (sfxPlayedRef.current.has(cue.id)) return undefined;
 
-    const el = new Audio();
-    el.src = cue.src;
-    el.volume = cue.gain;
-    el.preload = "auto";
-    sfxRef.current.set(cue.id, el);
+    let el = sfxRef.current.get(cue.id);
+    if (!el) {
+      el = new Audio();
+      el.src = cue.src;
+      el.volume = cue.gain;
+      el.preload = "auto";
+      sfxRef.current.set(cue.id, el);
+    }
 
+    const audioEl = el;
     return observeStageEnter("stage-1", () => {
-      void el.play().catch(() => undefined);
+      sfxPlayedRef.current.add(cue.id);
+      void audioEl.play().catch(() => undefined);
     });
-  }, [audioOn, reducedMotion, hasHydrated]);
+  }, [audioOn, reducedMotion, isMobile, hasHydrated]);
 
   // Optional Stage 1 TTS narration. Independent of the main SFX cue;
   // fires only when the reader has explicitly opted in via the shell.
-  // Same mobile / reduced-motion gates apply.
+  // Same mobile / reduced-motion gates apply. The cleanup pauses the
+  // element (not just the observer) so toggling `audioOn`, `ttsOn`,
+  // or reduced-motion mid-playback actually stops the audio.
   useEffect(() => {
     if (!hasHydrated) return undefined;
-    if (!audioOn || !ttsOn || reducedMotion) return undefined;
-    if (isMobileViewport()) return undefined;
+    if (!audioOn || !ttsOn || reducedMotion || isMobile) return undefined;
+    if (ttsPlayedRef.current) return undefined;
 
     if (!ttsRef.current) {
       const el = new Audio();
@@ -144,10 +180,16 @@ export const AudioController = () => {
     }
 
     const el = ttsRef.current;
-    return observeStageEnter("stage-1", () => {
+    const cleanupObserver = observeStageEnter("stage-1", () => {
+      ttsPlayedRef.current = true;
       void el.play().catch(() => undefined);
     });
-  }, [audioOn, ttsOn, reducedMotion, hasHydrated]);
+
+    return () => {
+      cleanupObserver();
+      el.pause();
+    };
+  }, [audioOn, ttsOn, reducedMotion, isMobile, hasHydrated]);
 
   return null;
 };
