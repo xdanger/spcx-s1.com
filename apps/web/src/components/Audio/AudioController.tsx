@@ -97,14 +97,33 @@ export const AudioController = () => {
   const ttsRef = useRef<HTMLAudioElement | null>(null);
   const ttsPlayedRef = useRef(false);
 
-  // BGM lifecycle: create once, then play/pause based on `audioOn`
-  // and the reduced-motion gate. Re-creating the element when the
-  // toggle flips would reset playback position and trigger a fresh
-  // network fetch — instead we keep it warm and call `.play()` /
-  // `.pause()` against the same instance.
+  // BGM lifecycle: lazy-create on first opt-in, then play/pause
+  // against the same instance so toggling doesn't reset playback
+  // position. The lazy-create matters because audio is off by default
+  // site-wide (AGENTS.md §3) — eagerly constructing the element with
+  // `preload="auto"` would silently download the ~3-minute MP3 for
+  // every first-time visitor who never asked for audio. We also
+  // re-read `prefers-reduced-motion` directly from `matchMedia` here
+  // instead of trusting the store's `reducedMotion` flag, because the
+  // store starts at `false` and only flips after `hydrateReducedMotion`
+  // runs — a one-render race where a reduced-motion user with audio
+  // already persisted on could briefly hear BGM start.
   useEffect(() => {
     if (typeof window === "undefined") return undefined;
     if (!hasHydrated) return undefined;
+
+    const reducedMotionNow =
+      typeof window.matchMedia === "function"
+        ? window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        : reducedMotion;
+
+    const shouldPlay = audioOn && !reducedMotionNow;
+
+    if (!shouldPlay) {
+      // Don't even allocate the element; if we previously did, pause it.
+      bgmRef.current?.pause();
+      return undefined;
+    }
 
     if (!bgmRef.current) {
       const el = new Audio();
@@ -116,16 +135,10 @@ export const AudioController = () => {
     }
 
     const el = bgmRef.current;
-    const shouldPlay = audioOn && !reducedMotion;
-
-    if (shouldPlay) {
-      // `.play()` may reject if the browser blocks autoplay before a
-      // user gesture. Swallow the rejection — the user already opted
-      // in by clicking the toggle, so a missed start is a no-op.
-      void el.play().catch(() => undefined);
-    } else {
-      el.pause();
-    }
+    // `.play()` may reject if the browser blocks autoplay before a
+    // user gesture. Swallow the rejection — the user already opted
+    // in by clicking the toggle, so a missed start is a no-op.
+    void el.play().catch(() => undefined);
 
     return () => {
       el.pause();
