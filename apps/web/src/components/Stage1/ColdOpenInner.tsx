@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import type { SourceRef as SourceRefType } from "@spcx/content";
 
 import { useCanCinematic } from "../../hooks/useCanCinematic";
+import { useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { useSectionInView } from "../../hooks/useSectionInView";
 import { SourceRef } from "../SourceRef";
 
@@ -34,6 +35,8 @@ export const ColdOpenInner = ({
 }: ColdOpenInnerProps) => {
   const cinematic = useCanCinematic();
   const sectionInView = useSectionInView("stage-1");
+  const eyebrow = useStageEyebrow(1);
+  const srTitle = useUiString("stage.title.1");
   const sectionRef = useRef<HTMLElement>(null);
   const [typed, setTyped] = useState<string>(body);
   const [typing, setTyping] = useState(false);
@@ -109,10 +112,10 @@ export const ColdOpenInner = ({
       {cinematic && sectionInView ? <Starfield /> : null}
       <div className="mx-auto flex w-full max-w-4xl flex-col">
         <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-          Stage 01
+          {eyebrow}
         </p>
         <h2 id="stage-1-title" className="sr-only">
-          Cold Open
+          {srTitle}
         </h2>
         <blockquote className="mt-10">
           <p className="font-display text-2xl font-light leading-[1.55] text-body-white sm:text-3xl md:text-[2.05rem] md:leading-[1.5]">

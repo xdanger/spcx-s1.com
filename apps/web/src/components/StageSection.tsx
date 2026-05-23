@@ -2,7 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { useUiString } from "../hooks/useLocalized";
+import { useStageEyebrow, useUiString } from "../hooks/useLocalized";
 import { stageTitleId, type StageWithTitle } from "../lib/uiStrings";
 
 interface StageSectionProps {
@@ -18,7 +18,8 @@ interface StageSectionProps {
 export const StageSection = ({ id, title, eyebrow, lede, children }: StageSectionProps) => {
   const sectionId = `stage-${String(id)}`;
   const titleId = `${sectionId}-title`;
-  const eyebrowText = eyebrow ?? `Stage ${String(id).padStart(2, "0")}`;
+  const localizedEyebrow = useStageEyebrow(id);
+  const eyebrowText = eyebrow ?? localizedEyebrow;
   const localizedTitle = useUiString(stageTitleId(id));
   const renderedTitle = title ?? localizedTitle;
 

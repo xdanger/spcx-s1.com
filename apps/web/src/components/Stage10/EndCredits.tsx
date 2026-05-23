@@ -3,7 +3,7 @@
 import { useMemo, useState } from "react";
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale, useUiString } from "../../hooks/useLocalized";
+import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
 import { SourceRef } from "../SourceRef";
 
@@ -16,6 +16,7 @@ interface EndCreditsProps {
 export const EndCredits = ({ authored, caveat, glossary }: EndCreditsProps) => {
   const locale = useLocale();
   const title = useUiString("stage.title.10");
+  const eyebrow = useStageEyebrow(10);
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLowerCase();
   // Glossary search matches against the term, the English definition,
@@ -45,7 +46,7 @@ export const EndCredits = ({ authored, caveat, glossary }: EndCreditsProps) => {
       <div className="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)]">
         <div>
           <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-            Stage 10
+            {eyebrow}
           </p>
           <h2 id="stage-10-title" className="mt-4 text-4xl font-semibold">
             {title}

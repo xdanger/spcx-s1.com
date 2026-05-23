@@ -1,6 +1,6 @@
 "use client";
 
-import { useUiString } from "../../hooks/useLocalized";
+import { useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 
 // Stage 0's anchor section. Renders below the modal so the persistent
 // chapter index has a scroll target and screen readers reach the same
@@ -9,6 +9,7 @@ import { useUiString } from "../../hooks/useLocalized";
 export const Stage0Stub = () => {
   const title = useUiString("stage.title.0");
   const intro = useUiString("stage0.intro");
+  const eyebrow = useStageEyebrow(0);
 
   return (
     <section
@@ -18,7 +19,7 @@ export const Stage0Stub = () => {
     >
       <div className="mx-auto w-full max-w-5xl">
         <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-          Stage 00
+          {eyebrow}
         </p>
         <h1 id="stage-0-title" className="mt-4 text-5xl font-semibold">
           {title}
