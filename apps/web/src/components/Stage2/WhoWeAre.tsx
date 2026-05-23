@@ -4,6 +4,7 @@ import type { ContentNode } from "@spcx/content";
 
 import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
+import { reflowProse } from "../../lib/textHelpers";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
 import { Kpi } from "./Kpi";
@@ -36,17 +37,22 @@ export const WhoWeAre = ({ nodes }: WhoWeAreProps) => {
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
           {prose.map((node) => {
             const { primary, secondary } = dualText(node, locale);
+            // The S-1 source file hard-wraps every paragraph at ~110
+            // chars for the PDF; `reflowProse` collapses those source
+            // line breaks back into a single paragraph so the browser
+            // wraps naturally to the column width. We drop
+            // `whitespace-pre-wrap` for the same reason.
             return (
               <article key={node.id} className="space-y-4">
-                <p className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
-                  {primary}
+                <p className="font-body text-base leading-7 text-body-white">
+                  {reflowProse(primary)}
                 </p>
                 {secondary ? (
                   <p
                     lang="zh"
-                    className="whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
+                    className="border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                   >
-                    {secondary}
+                    {reflowProse(secondary)}
                   </p>
                 ) : null}
                 <SourceRef source={node.source} />

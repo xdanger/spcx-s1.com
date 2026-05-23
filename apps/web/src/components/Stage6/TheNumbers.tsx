@@ -4,7 +4,7 @@ import type { ContentNode } from "@spcx/content";
 
 import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
-import { cleanProse } from "../../lib/textHelpers";
+import { cleanProse, reflowProse } from "../../lib/textHelpers";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
 import { Kpi } from "../Stage2/Kpi";
@@ -90,14 +90,14 @@ export const TheNumbers = ({ nodes }: TheNumbersProps) => {
                 {node.source?.sectionTitle}
               </h3>
               <pre className="mt-5 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                {cleanProse(primary)}
+                {reflowProse(primary)}
               </pre>
               {secondary ? (
                 <pre
                   lang="zh"
                   className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                 >
-                  {cleanProse(secondary)}
+                  {reflowProse(secondary)}
                 </pre>
               ) : null}
               <SourceRef source={node.source} />

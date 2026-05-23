@@ -4,7 +4,7 @@ import type { ContentNode } from "@spcx/content";
 
 import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
-import { cleanProse, parseList } from "../../lib/textHelpers";
+import { parseList, reflowProse } from "../../lib/textHelpers";
 import type { UiStringId } from "../../lib/uiStrings";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
@@ -130,14 +130,14 @@ export const ThreePillars = ({ nodes }: ThreePillarsProps) => {
                   </summary>
                   <div className="mt-4 space-y-3">
                     <p className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                      {cleanProse(detailDual.primary)}
+                      {reflowProse(detailDual.primary)}
                     </p>
                     {detailDual.secondary ? (
                       <p
                         lang="zh"
                         className="whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                       >
-                        {cleanProse(detailDual.secondary)}
+                        {reflowProse(detailDual.secondary)}
                       </p>
                     ) : null}
                     <SourceRef source={pillar.detail.source} />
@@ -156,14 +156,14 @@ export const ThreePillars = ({ nodes }: ThreePillarsProps) => {
                         </summary>
                         <div className="mt-4 space-y-3">
                           <p className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                            {cleanProse(extraDual.primary)}
+                            {reflowProse(extraDual.primary)}
                           </p>
                           {extraDual.secondary ? (
                             <p
                               lang="zh"
                               className="whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                             >
-                              {cleanProse(extraDual.secondary)}
+                              {reflowProse(extraDual.secondary)}
                             </p>
                           ) : null}
                           <SourceRef source={extra.source} />

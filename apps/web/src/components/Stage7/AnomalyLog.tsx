@@ -4,7 +4,7 @@ import type { ContentNode, RiskCategory } from "@spcx/content";
 
 import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
-import { cleanProse } from "../../lib/textHelpers";
+import { reflowProse } from "../../lib/textHelpers";
 import type { UiStringId } from "../../lib/uiStrings";
 import { SourceRef } from "../SourceRef";
 import { StageSection } from "../StageSection";
@@ -106,14 +106,14 @@ const RiskCard = ({ node, dense = false }: { node: ContentNode; dense?: boolean 
       </summary>
       <div className="border-t border-white/10 px-5 py-4">
         <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-          {cleanProse(primary)}
+          {reflowProse(primary)}
         </pre>
         {secondary ? (
           <pre
             lang="zh"
             className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
           >
-            {cleanProse(secondary)}
+            {reflowProse(secondary)}
           </pre>
         ) : null}
         <SourceRef source={node.source} />
@@ -190,14 +190,14 @@ export const AnomalyLog = ({ nodes }: AnomalyLogProps) => {
               </summary>
               <div className="border-t border-white/10 px-5 py-4">
                 <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                  {cleanProse(summaryDual.primary)}
+                  {reflowProse(summaryDual.primary)}
                 </pre>
                 {summaryDual.secondary ? (
                   <pre
                     lang="zh"
                     className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                   >
-                    {cleanProse(summaryDual.secondary)}
+                    {reflowProse(summaryDual.secondary)}
                   </pre>
                 ) : null}
                 <SourceRef source={summary.source} />
@@ -254,14 +254,14 @@ export const AnomalyLog = ({ nodes }: AnomalyLogProps) => {
               {crosslinkTitle}
             </h3>
             <pre className="mt-5 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-              {cleanProse(caveatDual.primary)}
+              {reflowProse(caveatDual.primary)}
             </pre>
             {caveatDual.secondary ? (
               <pre
                 lang="zh"
                 className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
               >
-                {cleanProse(caveatDual.secondary)}
+                {reflowProse(caveatDual.secondary)}
               </pre>
             ) : null}
             <SourceRef source={caveat.source} />
