@@ -4,7 +4,7 @@ import type { ContentNode } from "@spcx/content";
 
 import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
-import { cleanProse } from "../../lib/textHelpers";
+import { reflowProse } from "../../lib/textHelpers";
 import { parseGroupedList } from "../../lib/groupedList";
 import { SourceRef } from "../SourceRef";
 import { RoadmapCinematic } from "./RoadmapCinematic";
@@ -71,14 +71,14 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
                 {whyNowEyebrow}
               </p>
               <pre className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
-                {cleanProse(whyNowDual.primary)}
+                {reflowProse(whyNowDual.primary)}
               </pre>
               {whyNowDual.secondary ? (
                 <pre
                   lang="zh"
                   className="whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                 >
-                  {cleanProse(whyNowDual.secondary)}
+                  {reflowProse(whyNowDual.secondary)}
                 </pre>
               ) : null}
               <SourceRef source={whyNow.source} />
@@ -159,14 +159,14 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
               </summary>
               <div className="border-t border-white/10 px-5 py-5">
                 <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                  {cleanProse(growthDetailDual.primary)}
+                  {reflowProse(growthDetailDual.primary)}
                 </pre>
                 {growthDetailDual.secondary ? (
                   <pre
                     lang="zh"
                     className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                   >
-                    {cleanProse(growthDetailDual.secondary)}
+                    {reflowProse(growthDetailDual.secondary)}
                   </pre>
                 ) : null}
                 <SourceRef source={growthDetail.source} />
@@ -189,14 +189,14 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
                 {caveatTitle}
               </h3>
               <pre className="mt-5 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                {cleanProse(caveatDual.primary)}
+                {reflowProse(caveatDual.primary)}
               </pre>
               {caveatDual.secondary ? (
                 <pre
                   lang="zh"
                   className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                 >
-                  {cleanProse(caveatDual.secondary)}
+                  {reflowProse(caveatDual.secondary)}
                 </pre>
               ) : null}
               <SourceRef source={caveat.source} />

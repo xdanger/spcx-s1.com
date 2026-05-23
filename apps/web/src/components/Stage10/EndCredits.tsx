@@ -5,6 +5,7 @@ import type { ContentNode } from "@spcx/content";
 
 import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
+import { reflowProse } from "../../lib/textHelpers";
 import { SourceRef } from "../SourceRef";
 
 interface EndCreditsProps {
@@ -89,14 +90,14 @@ export const EndCredits = ({ authored, caveat, glossary }: EndCreditsProps) => {
           <article className="mt-12 border-l border-accent-amber pl-5">
             <h3 className="text-xl font-semibold">{forwardLookingHeading}</h3>
             <pre className="mt-4 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-              {caveatDual.primary}
+              {reflowProse(caveatDual.primary)}
             </pre>
             {caveatDual.secondary ? (
               <pre
                 lang="zh"
                 className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
               >
-                {caveatDual.secondary}
+                {reflowProse(caveatDual.secondary)}
               </pre>
             ) : null}
             <SourceRef source={caveat.source} />

@@ -75,6 +75,22 @@ export const parseListItems = (text: string): ParsedListItem[] => parseList(text
 
 export const cleanProse = (text: string): string => sanitize(text.split(/\r?\n/)).join("\n");
 
+// `reflowProse` is the right transformer for paragraph-style prose
+// nodes whose source is the S-1 PDF — that file wraps every paragraph
+// at ~110 characters, so a naive render with `whitespace-pre-wrap`
+// produces visible hard breaks mid-sentence. `reflowProse` collapses
+// single newlines into spaces (the S-1's intra-paragraph line breaks
+// are typographical, not semantic) while preserving paragraph breaks
+// (`\n\n+`). Trailing / leading whitespace per paragraph is trimmed.
+// Use the rendered output with normal HTML wrapping — do not pair it
+// with `whitespace-pre-wrap` or the spaces will collapse oddly.
+export const reflowProse = (text: string): string =>
+  text
+    .split(/\n{2,}/)
+    .map((paragraph) => paragraph.replace(/\s*\n\s*/g, " ").trim())
+    .filter((paragraph) => paragraph.length > 0)
+    .join("\n\n");
+
 export const localized = (node: ContentNode, locale: "en" | "zh"): string => {
   const candidate = node.text[locale];
   return candidate && candidate.length > 0 ? candidate : node.text.en;

@@ -4,7 +4,7 @@ import type { ContentNode } from "@spcx/content";
 
 import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
-import { cleanProse } from "../../lib/textHelpers";
+import { reflowProse } from "../../lib/textHelpers";
 import { parseGroupedList } from "../../lib/groupedList";
 import { SourceRef } from "../SourceRef";
 import { ClosingLine } from "./ClosingLine";
@@ -69,14 +69,14 @@ export const Horizon = ({ nodes }: HorizonProps) => {
                 {kardashevEyebrow}
               </p>
               <pre className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
-                {cleanProse(kardashevDual.primary)}
+                {reflowProse(kardashevDual.primary)}
               </pre>
               {kardashevDual.secondary ? (
                 <pre
                   lang="zh"
                   className="whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                 >
-                  {cleanProse(kardashevDual.secondary)}
+                  {reflowProse(kardashevDual.secondary)}
                 </pre>
               ) : null}
               <SourceRef source={kardashev.source} />
@@ -114,14 +114,14 @@ export const Horizon = ({ nodes }: HorizonProps) => {
                 {lunarEyebrow}
               </p>
               <pre className="whitespace-pre-wrap font-body text-base leading-7 text-body-white">
-                {cleanProse(lunarDual.primary)}
+                {reflowProse(lunarDual.primary)}
               </pre>
               {lunarDual.secondary ? (
                 <pre
                   lang="zh"
                   className="whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                 >
-                  {cleanProse(lunarDual.secondary)}
+                  {reflowProse(lunarDual.secondary)}
                 </pre>
               ) : null}
               <SourceRef source={lunar.source} />
@@ -135,14 +135,14 @@ export const Horizon = ({ nodes }: HorizonProps) => {
               </summary>
               <div className="border-t border-white/10 px-5 py-5">
                 <pre className="whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                  {cleanProse(futureDetailDual.primary)}
+                  {reflowProse(futureDetailDual.primary)}
                 </pre>
                 {futureDetailDual.secondary ? (
                   <pre
                     lang="zh"
                     className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                   >
-                    {cleanProse(futureDetailDual.secondary)}
+                    {reflowProse(futureDetailDual.secondary)}
                   </pre>
                 ) : null}
                 <SourceRef source={futureDetail.source} />
@@ -165,14 +165,14 @@ export const Horizon = ({ nodes }: HorizonProps) => {
                 {caveatTitle}
               </h3>
               <pre className="mt-5 whitespace-pre-wrap font-body text-sm leading-7 text-muted-white">
-                {cleanProse(caveatDual.primary)}
+                {reflowProse(caveatDual.primary)}
               </pre>
               {caveatDual.secondary ? (
                 <pre
                   lang="zh"
                   className="mt-4 whitespace-pre-wrap border-l border-white/15 pl-3 font-body text-sm leading-7 text-muted-white/80"
                 >
-                  {cleanProse(caveatDual.secondary)}
+                  {reflowProse(caveatDual.secondary)}
                 </pre>
               ) : null}
               <SourceRef source={caveat.source} />
