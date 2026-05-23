@@ -30,14 +30,19 @@ const parseBullet = (line: string): { marker: string; body: string } | null => {
 // Title separator: ASCII period + space (en source convention) or
 // full-width Chinese period (`。`), which traditionally has no
 // trailing space. Accepting both lets the eyebrow/body split still
-// fire after the zh registry lands.
+// fire after the zh registry lands. Same empty-rest bail as
+// textHelpers.splitTitle so a single zh sentence ending in `。`
+// stays in the body slot instead of getting falsely promoted to a
+// title with an empty body.
 const TITLE_SPLIT_EN = /^([^.]{2,80})\.\s+(.*)$/s;
 const TITLE_SPLIT_ZH = /^([^。]{2,80})。\s*(.*)$/s;
 
 const splitTitle = (body: string): { title: string | null; rest: string } => {
   const match = TITLE_SPLIT_EN.exec(body) ?? TITLE_SPLIT_ZH.exec(body);
   if (!match) return { title: null, rest: body };
-  return { title: match[1].trim(), rest: match[2].trim() };
+  const rest = match[2].trim();
+  if (rest.length === 0) return { title: null, rest: body };
+  return { title: match[1].trim(), rest };
 };
 
 const sanitize = (lines: string[]): string[] =>
