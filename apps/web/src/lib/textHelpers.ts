@@ -17,13 +17,20 @@ const PAGE_ARTIFACT_PATTERN = /^\d{1,3}$/;
 // full-width Chinese period (`。`), which traditionally has no
 // trailing space. Accepting both keeps the eyebrow/body split
 // working in Stage 3 / Stage 8 cards after zh translations land.
+// The ZH regex uses `\s*` because zh typography omits the trailing
+// space — splitTitle below then bails when `rest` is empty so a
+// single sentence terminated by `。` is treated as body, not a
+// title with an empty body (which Algorithm.tsx would render as
+// `title. ` with a spurious English period).
 const TITLE_SPLIT_EN = /^([^.]{2,80})\.\s+(.*)$/s;
 const TITLE_SPLIT_ZH = /^([^。]{2,80})。\s*(.*)$/s;
 
 const splitTitle = (body: string): { title: string | null; rest: string } => {
   const match = TITLE_SPLIT_EN.exec(body) ?? TITLE_SPLIT_ZH.exec(body);
   if (!match) return { title: null, rest: body };
-  return { title: match[1].trim(), rest: match[2].trim() };
+  const rest = match[2].trim();
+  if (rest.length === 0) return { title: null, rest: body };
+  return { title: match[1].trim(), rest };
 };
 
 const sanitize = (lines: string[]): string[] =>
