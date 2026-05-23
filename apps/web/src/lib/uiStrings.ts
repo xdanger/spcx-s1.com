@@ -22,6 +22,7 @@ const stageTitle = (en: string, zh: string): UiStringEntry => ({ en, zh });
 
 export const UI_STRINGS = {
   "shell.brand": { en: "SpaceX S-1", zh: "SpaceX S-1" },
+  "shell.skip-to-main": { en: "Skip to main content", zh: "跳至主要内容" },
   "shell.tminus.aria": { en: "T minus", zh: "T 减" },
   "shell.chapters.label": { en: "Chapters", zh: "章节" },
   "shell.chapters.nav-aria": { en: "Chapter index", zh: "章节索引" },

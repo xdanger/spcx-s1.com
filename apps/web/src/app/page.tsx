@@ -41,7 +41,7 @@ export default function Home() {
   };
 
   return (
-    <main>
+    <main id="main-content">
       <MissionBriefing nodes={stage0} />
       <Stage0Stub />
       {STAGES.slice(1, 10).map((stage) => {
