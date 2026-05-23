@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale, useUiString } from "../../hooks/useLocalized";
+import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText } from "../../lib/localized";
 import { useUIStore } from "../../stores/uiStore";
 
@@ -18,6 +18,7 @@ export const MissionBriefing = ({ nodes }: MissionBriefingProps) => {
   const locale = useLocale();
   const title = useUiString("stage.title.0");
   const dismissLabel = useUiString("stage0.dismiss");
+  const eyebrow = useStageEyebrow(0);
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ export const MissionBriefing = ({ nodes }: MissionBriefingProps) => {
     >
       <div className="p-6 sm:p-8">
         <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-          Stage 00
+          {eyebrow}
         </p>
         <h1 id="mission-briefing-title" className="mt-3 text-3xl font-semibold leading-tight">
           {title}

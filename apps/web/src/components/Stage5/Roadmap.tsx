@@ -2,7 +2,7 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale, useUiString } from "../../hooks/useLocalized";
+import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
 import { cleanProse } from "../../lib/textHelpers";
 import { parseGroupedList } from "../../lib/groupedList";
@@ -23,6 +23,7 @@ const GROUP_ACCENT: Record<string, string> = {
 export const Roadmap = ({ nodes }: RoadmapProps) => {
   const locale = useLocale();
   const title = useUiString("stage.title.5");
+  const eyebrow = useStageEyebrow(5);
   const whyNow = nodes.find((node) => node.id === "stage5.roadmap.why-now");
   const growthSummary = nodes.find((node) => node.id === "stage5.roadmap.growth-summary");
   const growthDetail = nodes.find((node) => node.id === "stage5.roadmap.growth-detail");
@@ -48,7 +49,7 @@ export const Roadmap = ({ nodes }: RoadmapProps) => {
       <RoadmapCinematic />
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-blue">
-          Stage 05
+          {eyebrow}
         </p>
         <h2
           id="stage-5-title"

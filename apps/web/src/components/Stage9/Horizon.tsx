@@ -2,7 +2,7 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale, useUiString } from "../../hooks/useLocalized";
+import { useLocale, useStageEyebrow, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
 import { cleanProse } from "../../lib/textHelpers";
 import { parseGroupedList } from "../../lib/groupedList";
@@ -17,6 +17,7 @@ interface HorizonProps {
 export const Horizon = ({ nodes }: HorizonProps) => {
   const locale = useLocale();
   const title = useUiString("stage.title.9");
+  const eyebrow = useStageEyebrow(9);
   const kardashev = nodes.find((node) => node.id === "stage9.horizon.kardashev-framing");
   const futureSummary = nodes.find(
     (node) => node.id === "stage9.horizon.future-markets-summary",
@@ -46,7 +47,7 @@ export const Horizon = ({ nodes }: HorizonProps) => {
       <HorizonCinematic />
       <div className="relative z-10 mx-auto w-full max-w-6xl">
         <p className="font-telemetry text-xs uppercase tracking-[0.18em] text-accent-teal">
-          Stage 09
+          {eyebrow}
         </p>
         <h2
           id="stage-9-title"

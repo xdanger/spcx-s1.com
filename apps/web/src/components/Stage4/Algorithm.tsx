@@ -2,7 +2,7 @@
 
 import type { ContentNode } from "@spcx/content";
 
-import { useLocale } from "../../hooks/useLocalized";
+import { useLocale, useUiString } from "../../hooks/useLocalized";
 import { dualText, primaryText } from "../../lib/localized";
 import { parseList } from "../../lib/textHelpers";
 import { SourceRef } from "../SourceRef";
@@ -14,6 +14,7 @@ interface AlgorithmProps {
 
 export const Algorithm = ({ nodes }: AlgorithmProps) => {
   const locale = useLocale();
+  const callout = useUiString("stage4.algorithm.callout");
   const listNode = nodes.find(
     (node) => node.id === "stage4.algorithm.repeatable-business-model",
   );
@@ -58,7 +59,7 @@ export const Algorithm = ({ nodes }: AlgorithmProps) => {
             className="border-l-2 border-accent-amber bg-panel-black/40 p-6"
           >
             <p className="font-telemetry text-[11px] uppercase tracking-[0.18em] text-accent-amber">
-              The Algorithm
+              {callout}
             </p>
             <p className="mt-3 text-2xl font-semibold leading-snug text-body-white sm:text-3xl">
               {quoteDual.primary}
