@@ -7,6 +7,30 @@ and merged.
 If time gets tight, **Phase 2 is the minimum viable site** — readable,
 complete, and honest, even without 3D and audio polish.
 
+## Status snapshot
+
+All five Phase deliverables have landed on `main` and serve from
+Cloudflare Pages:
+
+- **Phase 1** done — content layer, validator, persistent UI shell, Stage 0 + Stage 10.
+- **Phase 2** done — Stages 2, 3, 4, 6, 7, 8 render with KPI count-ups, list grids, risk taxonomy, governance blocks.
+- **Phase 3** done — cinematic Stages 1, 5, 9 with R3F starfield / forward-drift / wireframe Earth, all reduced-motion gated.
+- **Phase 4** done — PR A infra (zh registry, dual-text helper), PR B₁/B₂/B₃ translations (193/193 zh entries, validator default flipped to phase 4), PR C SEO + share cards + a11y polish.
+- **Phase 5** done — PR D₁ playback infrastructure, PR D₂ BGM + Stage 1 SFX assets, PR D₃ Stage 1 TTS narration + contextual toggle. PR D₄ (additional cinematic-stage SFX) queued.
+
+Post-Phase UX iteration also shipped: modal centering, prose reflow
+across every stage, page-artifact sanitization, Stage 0 inline
+briefing copy, KPI / milestone metadata zh labels.
+
+Open follow-ups (none blocking):
+
+- `node.source?.sectionTitle` still surfaces verbatim English in
+  details summaries — needs a section-title translation map.
+- Per-stage OG share cards — pending a routing refactor that exposes
+  distinct deep-link URLs per stage.
+- Automated axe + Lighthouse gate in CI.
+- PR D₄: extend SFX to Stages 5 and 9 once Kros has signed off on tone.
+
 ---
 
 ## Phase 1 — Skeleton + content extraction
@@ -213,9 +237,12 @@ PR B₃ — stage 10 glossary + phase-4 gate (this branch):
 
 Still deferred (tracked separately):
 
-- [ ] KPI / milestone metadata labels still render in English (the
-      `kpi.label` / `milestone.label` fields live on the schema, not in
-      uiStrings) — a schema-level fix.
+- [x] ~~KPI / milestone metadata labels still render in English~~ —
+      shipped post-Phase-4 in the UX-iteration pass. Schema's
+      `kpi.label` / `milestone.label` stay English (they double as
+      aria-label fallbacks); the zh form lives in `uiStrings` keyed by
+      `<node.id-prefix>.label`, with lookup helpers handling Stage 6's
+      year-suffix and Stage 2 milestones' slug-suffix id shapes.
 - [ ] `node.source?.sectionTitle` still surfaces verbatim English in
       details summaries (Stage 3 extras, Stage 6 tables) — needs a
       section-title translation map.
@@ -256,7 +283,9 @@ Review checkpoint at end of Phase 4 recommended (PLAN.md §11).
 
 ## Phase 5 — Audio polish
 
-**Status:** infrastructure landed (PR D₁); audio assets pending.
+**Status:** done. Infrastructure (PR D₁), assets (PR D₂ + D₃), and
+the post-merge fix passes (autoplay-retry, mobile gate hardening,
+non-activating-event re-arm) all landed.
 
 ### PR D₁ — playback infrastructure (this branch)
 
@@ -282,21 +311,47 @@ Review checkpoint at end of Phase 4 recommended (PLAN.md §11).
       a file lands, the corresponding cue is silently ignored at
       runtime — adding a file is a content drop with no code change.
 
-### Still to do (follow-up PRs)
+### PR D₂ — BGM + Stage 1 SFX assets (landed)
 
-- [ ] **PR D₂** — generate and commit the BGM track + Stage 1 SFX
-      via the ElevenLabs MCP (`mcp__ElevenLabs_Player__generate_music`,
-      `generate_sound_effect`), then verify in browser.
-- [ ] **PR D₃** — generate and commit the optional Stage 1 TTS
-      narration (`generate_tts`) and surface a user-facing toggle for
-      `ttsOn` (probably contextual on Stage 1 itself, not the
-      persistent shell).
+- [x] `apps/web/public/audio/bgm-ambient-loop.mp3` — ~3 min ambient
+      track generated via the ElevenLabs music API. Restrained synth
+      pads + sub-bass drone, no melody, loops via `<audio loop>`.
+- [x] `apps/web/public/audio/sfx-stage1-cold-open.mp3` — ~1.8 s
+      mission-control attention chime via the sound-generation API.
+- [x] `.gitattributes` path override so the two MP3s bypass the
+      inherited Unity-template Git LFS rule and commit as plain
+      binaries (deploy workflow's `actions/checkout` doesn't pull
+      LFS, so otherwise prod would serve pointer text as
+      `audio/mpeg`).
+- [x] AudioController retry: on autoplay-policy rejection, attach
+      one-shot `pointerdown` / `keydown` listeners that retry on the
+      next user gesture. Re-arms on non-activating events (modifier
+      keys, IME composition) so a returning visitor with `audioOn`
+      persisted true actually hears audio without manually toggling.
+
+### PR D₃ — Stage 1 TTS narration + UI (landed)
+
+- [x] `apps/web/public/audio/tts-stage1-musk-quote.mp3` — ~30 s
+      English narration of the Musk quote via the ElevenLabs TTS API
+      (voice: Eric, smooth/trustworthy/middle-aged American — a
+      neutral narrator, not a Musk impersonation).
+- [x] `Stage1/NarrationToggle.tsx` — inline ▶/■ button under the
+      Musk quote, the only surface that flips persisted `ttsOn`.
+      Self-suppresses on `prefers-reduced-motion: reduce` and mobile
+      (≤ 768 px) via a local matchMedia hook. Lazy-initializes
+      `isMobile` from `matchMedia` so the first paint after hydration
+      already reflects the viewport instead of flashing the button on
+      mobile.
+- [x] TTS playback latches only on successful `play()` so a 404 doesn't
+      burn the one-shot; resets the latch when `ttsOn` flips off so
+      Play → Stop → Play actually restarts; wires an `ended` listener
+      that flips `ttsOn` back to false on natural completion.
+
+### Out of scope here (queued)
+
 - [ ] **PR D₄** — extend SFX to other cinematic stages (5, 9) if
-      desired.
-
-The audio files involve creative / aesthetic decisions (mood, tone,
-voice) that benefit from Kros's review before consuming ElevenLabs
-credits. PR D₁ ships everything that doesn't require those choices.
+      desired. Manifest already supports it (just add an `SFX[id]`
+      entry); waiting on the aesthetic call from Kros.
 
 ---
 
