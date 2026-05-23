@@ -256,13 +256,47 @@ Review checkpoint at end of Phase 4 recommended (PLAN.md §11).
 
 ## Phase 5 — Audio polish
 
-**Status:** not started.
+**Status:** infrastructure landed (PR D₁); audio assets pending.
 
-Ambient BGM (~3 min loop) + stage SFX from ElevenLabs committed under
-`apps/web/public/audio/`. Optional Stage 1 TTS narration (opt-in,
-default OFF). All audio off by default site-wide. Volume policy: BGM
-≈ −20 dB below SFX, all cues < 2s. Mobile defaults to BGM only.
-`prefers-reduced-motion: reduce` → audio also defaults to muted.
+### PR D₁ — playback infrastructure (this branch)
+
+- [x] `apps/web/src/lib/audioManifest.ts` declares the BGM track, the
+      per-stage SFX cues, and the optional Stage 1 TTS narration, with
+      the volume policy encoded as `BGM_GAIN = 0.1` against
+      `SFX_GAIN = 1.0` (the −20 dB ratio called for by PLAN.md §7).
+- [x] `apps/web/src/components/Audio/AudioController.tsx` mounts once
+      from `Shell`, owns the BGM `<audio>` element, attaches per-stage
+      `IntersectionObserver`s for SFX cues, and gates everything on
+      the persisted `audioOn` flag plus `prefers-reduced-motion`
+      (forces audio off) and `max-width: 768px` (suppresses SFX,
+      leaves BGM only — the mobile policy from §7).
+- [x] `uiStore` extended with `ttsOn` (default false, persisted)
+      and `toggleTts`. Optional Stage 1 narration only plays when
+      both `audioOn` and `ttsOn` are true.
+- [x] `<html suppressHydrationWarning>` so the pre-hydration lang
+      script (PR C) no longer trips a React hydration mismatch on
+      zh-locale returning visits.
+- [x] `apps/web/public/audio/README.md` documents the expected file
+      names (`bgm-ambient-loop.mp3`, `sfx-stage1-cold-open.mp3`,
+      `tts-stage1-musk-quote.mp3`) and the generation workflow. Until
+      a file lands, the corresponding cue is silently ignored at
+      runtime — adding a file is a content drop with no code change.
+
+### Still to do (follow-up PRs)
+
+- [ ] **PR D₂** — generate and commit the BGM track + Stage 1 SFX
+      via the ElevenLabs MCP (`mcp__ElevenLabs_Player__generate_music`,
+      `generate_sound_effect`), then verify in browser.
+- [ ] **PR D₃** — generate and commit the optional Stage 1 TTS
+      narration (`generate_tts`) and surface a user-facing toggle for
+      `ttsOn` (probably contextual on Stage 1 itself, not the
+      persistent shell).
+- [ ] **PR D₄** — extend SFX to other cinematic stages (5, 9) if
+      desired.
+
+The audio files involve creative / aesthetic decisions (mood, tone,
+voice) that benefit from Kros's review before consuming ElevenLabs
+credits. PR D₁ ships everything that doesn't require those choices.
 
 ---
 
