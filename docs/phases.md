@@ -180,17 +180,32 @@ PR B₁ — infra + small stages (this branch):
 - [x] Populate `zh.ts` for stages 0 (4), 1 (1 Musk quote), and 4 (2)
       — 7/193 entries covered.
 
-PR B₂ — remaining stage content (follow-up):
+PR B₂ — stages 2-9 + label migration (this branch):
 
-- [ ] Populate `zh.ts` for stages 2/3/5/6/7/8/9 (64 entries) and
-      migrate their per-stage labels (Stage 7 `TITLE_OVERRIDES`,
-      Stage 8 `BLOCK_ORDER`, headings, summary toggles) onto the
-      registry.
+- [x] Populate `zh.ts` for stages 2/3/5/6/7/8/9 (64 entries) — 71/193
+      entries covered, only stage 10 remains.
+- [x] Migrate per-stage labels onto the `uiStrings` registry: Stage 2
+      KPI/milestones eyebrow, Stage 3 pillar names + section toggles,
+      Stage 5 / 6 / 9 section headings and caveat eyebrows, Stage 7
+      `TITLE_OVERRIDES` + category labels + severity labels + section
+      headings, Stage 8 `BLOCK_ORDER` labels + descriptions + verbatim
+      toggle. Stage titles 2/3/5/6/7/8/9 also filled in zh.
+- [x] `pnpm -r build`, `pnpm lint`, `pnpm --filter @spcx/content test`
+      all green.
+
+Out of scope here (carried into PR B₃):
+
 - [ ] Populate `zh.ts` for stage 10's glossary (122 entries, Kros to
       draft) plus EndCredits' "Forward-Looking Statements" + glossary
       search labels.
 - [ ] Flip the build script to `validate:phase4` so missing entries
       fail CI.
+- [ ] KPI / milestone metadata labels still render in English (the
+      `kpi.label` / `milestone.label` fields live on the schema, not in
+      uiStrings) — a schema-level fix tracked separately.
+- [ ] `node.source?.sectionTitle` still surfaces verbatim English in
+      details summaries (Stage 3 extras, Stage 6 tables) — needs a
+      section-title translation map.
 
 ### Phase 4 — PR C: SEO + share cards + a11y audit
 
