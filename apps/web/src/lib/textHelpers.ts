@@ -82,8 +82,18 @@ export const cleanProse = (text: string): string => sanitize(text.split(/\r?\n/)
 // single newlines into spaces (the S-1's intra-paragraph line breaks
 // are typographical, not semantic) while preserving paragraph breaks
 // (`\n\n+`). Trailing / leading whitespace per paragraph is trimmed.
-// Use the rendered output with normal HTML wrapping — do not pair it
-// with `whitespace-pre-wrap` or the spaces will collapse oddly.
+//
+// Rendering: the output contains `\n\n` separators between paragraphs,
+// so the caller must EITHER
+//   - render inside `whitespace-pre-wrap` (or `pre-line`) so the
+//     preserved double-newlines become visible paragraph breaks
+//     (the path used by Stage 3 / 5 / 6 / 7 / 8 / 9 / 10 `<pre>`
+//     blocks), OR
+//   - split on the paragraph boundaries via `splitReflowedParagraphs`
+//     and emit one `<p>` per paragraph (the Stage 2 path).
+// Dropping `whitespace-pre-wrap` without splitting will silently
+// collapse the inter-paragraph breaks to a single space — multi-
+// paragraph nodes will render as one run-on paragraph.
 export const reflowProse = (text: string): string =>
   // Run the same `sanitize` filter as `cleanProse` first so isolated
   // SEC page-number lines (e.g. "4" between paragraphs of the why-now
